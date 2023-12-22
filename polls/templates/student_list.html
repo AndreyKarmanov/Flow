@@ -1,0 +1,14 @@
+<table class="table table-striped w-100 d-block d-md-table">
+    <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Major</th>
+    </thead>
+    <tbody>
+        {% for student in students %}
+            {% include 'student_row.html' %}
+        {% endfor %}
+    </tbody>
+</table>
