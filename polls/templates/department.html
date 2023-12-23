@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'polls:schools' %}">
+        Schools
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{% url 'polls:school' school.pk %}">
+        {{ school.name }}
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    <a href="#">
+        {{ department.name }}
+    </a>
+</li>
+{% endblock %}
+{% block content %}
+{% load render_table from django_tables2 %}
+{% render_table courseTable %}
+{% endblock %}

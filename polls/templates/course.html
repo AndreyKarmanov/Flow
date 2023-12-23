@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'polls:schools' %}">
+        Schools
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{% url 'polls:school' school.pk %}">
+        {{ school.name }}
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{% url 'polls:department' school.pk department.pk %}">
+        {{ department.name }}
+    </a>
+</li>
+<li class="breadcrumb-item active">
+    <a href="#" aria-current="page">
+        {{ course.code }}
+    </a>
+</li>
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">{{ course.code }}</h1>
+                        <h2 class="card-subtitle">{{ course.name }}</h2>
+                        <h3 class="card-text">{{ course.credits }}</h3>
+                        <h4 class="card-text">{{ course.department.name }}</h4>
+                        <p class="card-text">{{ course.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Rating: {{ course.rating }}</h1>
+                        <h2 class="card-subtitle">Reviews: {{ reviews.count }}</h2>
+                        <h3 class="card-text">Difficulty: {{ difficulty }}</h3>
+                        <h4 class="card-text">Usefulness: {{ usefulness }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

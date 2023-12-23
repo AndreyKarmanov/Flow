@@ -39,3 +39,12 @@ class Course(models.Model):
     
     def get_absolute_url(self):
         return f"/schools/{self.school.pk}/departments/{self.department.pk}/courses/{self.pk}/"
+    
+class Review(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.IntegerField(blank=False, null=False, choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+    comment = models.CharField(max_length=500, blank=True, null=True)
+    lastUpdated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self) -> str:
+        return f"{self.course.code} {self.course.name} ({self.rating})"

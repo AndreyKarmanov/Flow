@@ -7,44 +7,66 @@ from django.forms import ModelForm, modelform_factory
 from .tables import SchoolTable, DepartmentTable, CourseTable
 from .models import School, Department, Course
 from django.views.decorators.http import require_POST, require_GET
+from django.views import View
+from django_tables2 import SingleTableView
+from django_tables2 import SingleTableView, RequestConfig
 
 
 @require_GET
 def index(request):
     return render(request, "index.html")
 
-@require_GET
-def schools(request):
-    schools = School.objects.all()
-    table = SchoolTable(schools)
-    return render(request, "schools.html", {"table": table})
 
-@require_GET
-def school(request, school_id):
-    school = get_object_or_404(School, pk=school_id)
-    return render(request, "school.html", {"school": school})
+class SchoolsView(SingleTableView):
+    table_class = SchoolTable
+    template_name = 'schools.html'
+    paginate_by = 10
 
-@require_GET
-def departments(request, school_id):
-    school = get_object_or_404(School, pk=school_id)
-    departments = school.departments.all()
-    return render(request, "departments.html", {"departments": departments})
+    def get(self, request):
+        schools = School.objects.all()
+        schoolTable = self.table_class(schools)
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(schoolTable)
+        return render(request, self.template_name, {"schoolTable": schoolTable})
 
-@require_GET
-def department(request, school_id, department_id):
-    department = get_object_or_404(Department, pk=department_id)
-    return render(request, "department.html", {"department": department})
 
-@require_GET
-def courses(request, school_id, department_id):
-    department = get_object_or_404(Department, pk=department_id)
-    courses = department.courses.all()
-    return render(request, "courses.html", {"courses": courses})
+class SchoolView(SingleTableView):
+    table_class = DepartmentTable
+    template_name = 'school.html'
+    paginate_by = 10
 
-@require_GET
-def course(request, school_id, department_id, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    return render(request, "course.html", {"course": course})
+    def get(self, request, school_id):
+        school = get_object_or_404(School, pk=school_id)
+        queryset = school.departments.all()
+        departmentTable = self.table_class(queryset)
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(departmentTable)
+        return render(request, self.template_name, {"departmentTable": departmentTable, "school": school})
+
+
+class DepartmentView(SingleTableView):
+    table_class = CourseTable
+    template_name = 'department.html'
+    paginate_by = 10
+
+    def get(self, request, school_id, department_id):
+        school = get_object_or_404(School, pk=school_id)
+        department = get_object_or_404(Department, pk=department_id)
+        queryset = department.courses.all()
+        courseTable = self.table_class(queryset)
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(courseTable)
+
+        return render(request, self.template_name, {"courseTable": courseTable, "department": department, "school": school})
+
+
+class CourseView(SingleTableView):
+    table_class = CourseTable
+    template_name = 'course.html'
+    paginate_by = 10
+
+    def get(self, request, school_id, department_id, course_id):
+        school = get_object_or_404(School, pk=school_id)
+        department = get_object_or_404(Department, pk=department_id)
+        course = get_object_or_404(Course, pk=course_id)
+        return render(request, self.template_name, {"course": course, "department": department, "school": school})
 
 # Create your views here.
 # @require_GET
@@ -84,7 +106,7 @@ def course(request, school_id, department_id, course_id):
 #     else:
 #         selected_choice.votes = F("votes") + 1 # this avoids a race condition by using the database to increment the votes field (this will be translated to SQL)
 #         # use refresh_from_db() to reload the object from the database, if you need to access the new value of votes.
-#         # if you do multiple save() the votes will be incremented multiple times, as F("votes") + 1 is not evaluated until the object is saved. 
+#         # if you do multiple save() the votes will be incremented multiple times, as F("votes") + 1 is not evaluated until the object is saved.
 #         selected_choice.save()
 #         # Always return an HttpResponseRedirect after successfully dealing
 #         # with POST data. This prevents data from being posted twice if a

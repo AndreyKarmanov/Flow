@@ -12,10 +12,11 @@ def insert_courses_into_db():
         course = Course(
             school_id=school_pk,
             department_id=department_pk,
-            title=row.name,
-            credits=row.credits,
+            name=row['name'],
+            credits=float(row.credits.rstrip(' Credit').rstrip(' Credits')),
             code=row.title,
-            description=row.description
+            description=row.description,
+            url=row.url,
         )
         course.save()
 
