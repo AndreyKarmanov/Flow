@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-from .models import Question, Choice, Student
+from polls.models import School, Department, Course
 
-admin.site.register(Question)
-admin.site.register(Choice)
-admin.site.register(Student)
-
+admin.site.register(School)
+admin.site.register(Department)
+admin.site.register(Course)

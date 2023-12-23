@@ -30,7 +30,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap5.html"
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Application definition
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'django_htmx',
     'polls.apps.PollsConfig',
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

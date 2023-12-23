@@ -1,32 +1,41 @@
-import datetime
-
 from django.db import models
-from django.utils import timezone
 
-class Question(models.Model):
-    questionText = models.CharField(max_length=200)
-    pubDate = models.DateTimeField("date published")
-
-    def recent(self) -> bool:
-        return self.pubDate >= timezone.now() - datetime.timedelta(days=1)
-    
-    def __str__(self) -> str:
-        return self.questionText
-    
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choiceText = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+class School(models.Model):
+    name = models.CharField(max_length=255, blank=False, null=False)
+    country = models.CharField(max_length=60, blank=False, null=False)
+    website = models.URLField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self) -> str:
-        return self.choiceText
-    
-class Student(models.Model):
-    first_name = models.CharField(max_length = 50, blank = True, null = True)
-    last_name = models.CharField(max_length = 50, blank = True, null = True)
-    gender = models.CharField(max_length = 10, blank = True, null = True)
-    age = models.DecimalField(max_digits = 7, decimal_places = 0, blank=True, null=True)
-    major = models.CharField(max_length = 50, blank = True, null = True)
+        return f"{self.name}"
+
+    def get_absolute_url(self):
+        return f"/schools/{self.pk}/"
+
+class Department(models.Model):
+    name = models.CharField(max_length=255, blank=False, null=False)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='departments')
+    description = models.CharField(max_length=500, blank=True, null=True)
+    lastUpdated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.name} ({self.school.name})"
+    
+    def get_absolute_url(self):
+        return f"/schools/{self.school.pk}/departments/{self.pk}/"
+
+class Course(models.Model):
+    code = models.CharField(max_length=20, blank=False, null=False)
+    name = models.CharField(max_length=255, blank=False, null=False)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='courses')
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='courses')
+    description = models.CharField(max_length=500, blank=True, null=True)
+    credits = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    url = models.URLField(max_length=200, blank=True, null=True)
+    lastUpdated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self) -> str:
+        return f"{self.code} {self.name}"
+    
+    def get_absolute_url(self):
+        return f"/schools/{self.school.pk}/departments/{self.department.pk}/courses/{self.pk}/"

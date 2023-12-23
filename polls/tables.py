@@ -1,18 +1,28 @@
 import django_tables2 as tables
-from .models import Question, Choice
+from django.urls import reverse
+from .models import School, Department, Course
 
 
-class QuestionTable(tables.Table):
+class SchoolTable(tables.Table):
+    name = tables.columns.Column(
+        linkify=True,
+        verbose_name="School",
+        accessor=tables.A("name"),
+        
+    )
+    
     class Meta:
-        model = Question
-        fields = ("questionText", "pubDate")
+        model = School
+        fields = ('name', 'country', 'website', 'description')
 
-class ChoiceTable(tables.Table):
-    class Meta:
-        model = Choice
-        fields = ("choiceText", "votes")
 
-class QuestionChoiceTable(tables.Table):
+class DepartmentTable(tables.Table):
     class Meta:
-        model = Question
-        fields = ("questionText", "pubDate", "choice_set")
+        model = Department
+        fields = ('name', 'school', 'description')
+
+
+class CourseTable(tables.Table):
+    class Meta:
+        model = Course
+        fields = ('code', 'name', 'school', 'department', 'description', 'credits', 'url')

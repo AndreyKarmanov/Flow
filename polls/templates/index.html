@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polls with Django</title>
-</head>
-
-<body>
-    {% if latestQuestions %}
-    <ul>
-        {% for question in latestQuestions %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.questionText }}</a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No polls are available.</p>
-    {% endif %}
-</body>
-
-</html>
+{% block content %}
+    <h1>Welcome to the Index Page</h1>
+    <p>This is the content of the index page.</p>
+{% endblock %}

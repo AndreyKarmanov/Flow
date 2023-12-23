@@ -4,118 +4,156 @@ from django.urls import reverse
 from django.db.models import F
 from django.views.generic import TemplateView
 from django.forms import ModelForm, modelform_factory
-
-from .models import Question, Choice, Student
+from .tables import SchoolTable, DepartmentTable, CourseTable
+from .models import School, Department, Course
 from django.views.decorators.http import require_POST, require_GET
 
-# Create your views here.
+
 @require_GET
 def index(request):
-    latestQuestions = Question.objects.order_by("-pubDate")[:5]
-    context = {
-        "latestQuestions": latestQuestions,
-    }
-    return render(request, "index.html", context)
+    return render(request, "index.html")
 
 @require_GET
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "detail.html", {"question": question})
+def schools(request):
+    schools = School.objects.all()
+    table = SchoolTable(schools)
+    return render(request, "schools.html", {"table": table})
 
 @require_GET
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "results.html", {"question": question})
-
-
-@require_POST
-def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST["choice"])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(
-            request,
-            "polls/detail.html",
-            {
-                "question": question,
-                "error_message": "You didn't select a choice.",
-            },
-        )
-    else:
-        selected_choice.votes = F("votes") + 1 # this avoids a race condition by using the database to increment the votes field (this will be translated to SQL)
-        # use refresh_from_db() to reload the object from the database, if you need to access the new value of votes.
-        # if you do multiple save() the votes will be incremented multiple times, as F("votes") + 1 is not evaluated until the object is saved. 
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+def school(request, school_id):
+    school = get_object_or_404(School, pk=school_id)
+    return render(request, "school.html", {"school": school})
 
 @require_GET
-def question_list(request):
-    questions = Question.objects.all()
-    return render(request, "question_list.html", {"questions": questions})
+def departments(request, school_id):
+    school = get_object_or_404(School, pk=school_id)
+    departments = school.departments.all()
+    return render(request, "departments.html", {"departments": departments})
+
+@require_GET
+def department(request, school_id, department_id):
+    department = get_object_or_404(Department, pk=department_id)
+    return render(request, "department.html", {"department": department})
+
+@require_GET
+def courses(request, school_id, department_id):
+    department = get_object_or_404(Department, pk=department_id)
+    courses = department.courses.all()
+    return render(request, "courses.html", {"courses": courses})
+
+@require_GET
+def course(request, school_id, department_id, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    return render(request, "course.html", {"course": course})
+
+# Create your views here.
+# @require_GET
+# def index(request):
+#     latestQuestions = Question.objects.order_by("-pubDate")[:5]
+#     context = {
+#         "latestQuestions": latestQuestions,
+#     }
+#     return render(request, "index.html", context)
+
+# @require_GET
+# def detail(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     return render(request, "detail.html", {"question": question})
+
+# @require_GET
+# def results(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     return render(request, "results.html", {"question": question})
 
 
-class HomePageView(TemplateView):
-    template_name = 'base.html'
+# @require_POST
+# def vote(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     try:
+#         selected_choice = question.choice_set.get(pk=request.POST["choice"])
+#     except (KeyError, Choice.DoesNotExist):
+#         # Redisplay the question voting form.
+#         return render(
+#             request,
+#             "polls/detail.html",
+#             {
+#                 "question": question,
+#                 "error_message": "You didn't select a choice.",
+#             },
+#         )
+#     else:
+#         selected_choice.votes = F("votes") + 1 # this avoids a race condition by using the database to increment the votes field (this will be translated to SQL)
+#         # use refresh_from_db() to reload the object from the database, if you need to access the new value of votes.
+#         # if you do multiple save() the votes will be incremented multiple times, as F("votes") + 1 is not evaluated until the object is saved. 
+#         selected_choice.save()
+#         # Always return an HttpResponseRedirect after successfully dealing
+#         # with POST data. This prevents data from being posted twice if a
+#         # user hits the Back button.
+#         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 
-class StudentForm(ModelForm):
-    class Meta:
-        model = Student
-        exclude = []
-
-def get_student_list(request):
-    context = {}
-    context['students'] = Student.objects.all()
-    return render(request, 'student_list.html', context)
-
-def add_student(request):
-    context = {'form': StudentForm()}
-    return render(request, 'partial/student/add_student.html', context)
-
-def submit_new_student(request):
-    context = {}
-    form = StudentForm(request.POST)
-    context['form'] = form
-    if form.is_valid():
-        context['student'] = form.save()
-    else:
-        return render(request, 'partial/student/add_student.html', context)
-    return render(request, 'partial/student/student_row.html', context)
-
-def cancel_add_student(request):
-    return HttpResponse()
-
-def delete_student(request, student_pk):
-    student = Student.objects.get(pk=student_pk)
-    student.delete()
-    return HttpResponse()
+# @require_GET
+# def question_list(request):
+#     questions = Question.objects.all()
+#     return render(request, "question_list.html", {"questions": questions})
 
 
-def edit_student(request, student_pk):
-    student = Student.objects.get(pk=student_pk)
-    context = {}
-    context['student'] = student
-    context['form'] = StudentForm(initial={
-        'first_name':student.first_name,
-        'last_name': student.last_name,
-        'gender': student.gender,
-        'age': student.age,
-        'major': student.major
-    })
-    return render(request, 'edit_student.html', context)
+# class HomePageView(TemplateView):
+#     template_name = 'base.html'
 
-def edit_student_submit(request, student_pk):
-    context = {}
-    student = Student.objects.get(pk=student_pk)
-    context['student'] = student
-    if request.method == 'POST':
-        form = StudentForm(request.POST, instance=student)
-        if form.is_valid():
-            form.save()
-        else:
-            return render(request, 'edit_student.html', context)
-    return render(request, 'student_row.html', context)
+# class StudentForm(ModelForm):
+#     class Meta:
+#         model = Student
+#         exclude = []
+
+# def get_student_list(request):
+#     context = {}
+#     context['students'] = Student.objects.all()
+#     return render(request, 'student_list.html', context)
+
+# def add_student(request):
+#     context = {'form': StudentForm()}
+#     return render(request, 'partial/student/add_student.html', context)
+
+# def submit_new_student(request):
+#     context = {}
+#     form = StudentForm(request.POST)
+#     context['form'] = form
+#     if form.is_valid():
+#         context['student'] = form.save()
+#     else:
+#         return render(request, 'partial/student/add_student.html', context)
+#     return render(request, 'partial/student/student_row.html', context)
+
+# def cancel_add_student(request):
+#     return HttpResponse()
+
+# def delete_student(request, student_pk):
+#     student = Student.objects.get(pk=student_pk)
+#     student.delete()
+#     return HttpResponse()
+
+
+# def edit_student(request, student_pk):
+#     student = Student.objects.get(pk=student_pk)
+#     context = {}
+#     context['student'] = student
+#     context['form'] = StudentForm(initial={
+#         'first_name':student.first_name,
+#         'last_name': student.last_name,
+#         'gender': student.gender,
+#         'age': student.age,
+#         'major': student.major
+#     })
+#     return render(request, 'edit_student.html', context)
+
+# def edit_student_submit(request, student_pk):
+#     context = {}
+#     student = Student.objects.get(pk=student_pk)
+#     context['student'] = student
+#     if request.method == 'POST':
+#         form = StudentForm(request.POST, instance=student)
+#         if form.is_valid():
+#             form.save()
+#         else:
+#             return render(request, 'edit_student.html', context)
+#     return render(request, 'student_row.html', context)
