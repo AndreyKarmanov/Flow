@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class School(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
@@ -15,7 +16,6 @@ class School(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='departments')
-    description = models.CharField(max_length=500, blank=True, null=True)
     lastUpdated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
@@ -40,11 +40,27 @@ class Course(models.Model):
     def get_absolute_url(self):
         return f"/schools/{self.school.pk}/departments/{self.department.pk}/courses/{self.pk}/"
     
+class Student(AbstractUser):
+    school = models.ForeignKey(School, on_delete=models.DO_NOTHING, related_name='students')
+    email = models.EmailField(max_length=254, unique=True)
+    lastUpdated = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.username}"
+    
+    def get_absolute_url(self):
+        return f"/students/{self.pk}/"
+    
 class Review(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
+    student = models.ForeignKey(Student, on_delete=models.DO_NOTHING, related_name='reviews')
     rating = models.IntegerField(blank=False, null=False, choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
     comment = models.CharField(max_length=500, blank=True, null=True)
     lastUpdated = models.DateTimeField(auto_now=True)
-    
+    anonymous = models.BooleanField(default=False)
+
     def __str__(self) -> str:
-        return f"{self.course.code} {self.course.name} ({self.rating})"
+        return f"{self.course.code} {self.course.name} - {self.student.name}"
+    
+    def get_absolute_url(self):
+        return f"/schools/{self.course.school.pk}/departments/{self.course.department.pk}/courses/{self.course.pk}/reviews/{self.pk}/"

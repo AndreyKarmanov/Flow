@@ -13,6 +13,7 @@
 </li>
 {% endblock %}
 {% block content %}
+<h1>{{ school.name }}</h1>
 {% load render_table from django_tables2 %}
 {% render_table departmentTable %}
 {% endblock %}

@@ -5,11 +5,11 @@ from django.db.models import F
 from django.views.generic import TemplateView
 from django.forms import ModelForm, modelform_factory
 from .tables import SchoolTable, DepartmentTable, CourseTable
-from .models import School, Department, Course
+from .models import School, Department, Course, Student
 from django.views.decorators.http import require_POST, require_GET
-from django.views import View
 from django_tables2 import SingleTableView
 from django_tables2 import SingleTableView, RequestConfig
+from django.contrib.auth import authenticate, login
 
 
 @require_GET
@@ -67,6 +67,27 @@ class CourseView(SingleTableView):
         department = get_object_or_404(Department, pk=department_id)
         course = get_object_or_404(Course, pk=course_id)
         return render(request, self.template_name, {"course": course, "department": department, "school": school})
+
+
+
+class LoginView(TemplateView):
+    template_name = 'login.html'
+
+    def get(self, request):
+        form = modelform_factory(Student, fields=('email',))
+        return render(request, self.template_name, {"form": form})
+    
+    def post(self, request):
+        form = modelform_factory(Student, fields=('email',))(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = authenticate(request, username=email)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                form.add_error('email', 'Email does not exist.')
+        return render(request, self.template_name, {"form": form})
 
 # Create your views here.
 # @require_GET

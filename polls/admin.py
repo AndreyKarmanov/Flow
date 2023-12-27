@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from polls.models import School, Department, Course
+import polls.models as dataModels
 
-admin.site.register(School)
-admin.site.register(Department)
-admin.site.register(Course)
+for model in [dataModels.School, dataModels.Department, dataModels.Course, dataModels.Student, dataModels.Review]:
+    admin.site.register(model)
