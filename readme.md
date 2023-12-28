@@ -1,16 +1,11 @@
 ### todo!
 
-laurier
-- departments
+laurier TODO:
 - co-reqs
 - pre-reqs
 - anti-reqs
 - leads to
-
-site basics
-- reviews
-- logins
-- students
+(this can probably be just an extra box that has "misc" info (adding links where possible))
 
 
 student
