@@ -2,6 +2,9 @@
 
 {% block content %}
 <h1>Login</h1>
+<form method="get" action="{% url 'polls:register' %}">
+    <button type="submit">Create Account</button>
+</form>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

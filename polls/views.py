@@ -11,6 +11,7 @@ from django_tables2 import SingleTableView
 from django_tables2 import SingleTableView, RequestConfig
 from django.contrib.auth.models import User
 
+from .forms import RegisterForm
 
 @require_GET
 def index(request):
@@ -72,12 +73,12 @@ class RegisterView(TemplateView):
     template_name = 'register.html'
 
     def get(self, request):
-        form = modelform_factory(User, fields=('username', 'email', 'password'))
+        form = RegisterForm()
         return render(request, self.template_name, {"form": form})
     
     def post(self, request):
-        form = modelform_factory(User, fields=('username', 'email', 'password'))(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-             User.objects.create_user(**form.cleaned_data)
+             form.save()
              return HttpResponseRedirect(reverse('polls:index'))
         return render(request, self.template_name, {"form": form})

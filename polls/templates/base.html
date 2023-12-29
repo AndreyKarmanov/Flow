@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flow</title>
+    <title>{% block title %}Flow{% endblock %}</title>
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
 </head>
 
@@ -31,16 +31,26 @@
                     {% csrf_token %}
                     <button type="submit">logout</button>
                 </form>
+                {% if user.is_staff %}
+                <form method="get" action="{% url 'admin:index' %}">
+                    <button type="submit">admin page</button>
+                </form>
+                {% endif %}
                 {% else %}
                 <form method="get" action="{% url 'login' %}">
                     <button type="submit">login</button>
                 </form>
                 {% endif %}
+
             </div>
         </div>
     </nav>
 
     <div class="container">
+        <div>
+            {% block header %}
+            {% endblock %}
+        </div>
         {% block content %}
         {% endblock %}
     </div>

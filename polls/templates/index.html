@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to the Index Page</h1>
-<p>This is the content of the index page.</p>
-<p><a href="{% url 'admin:index' %}">Admin</a></p>
-<p><a href="{% url 'polls:schools' %}">All Schools</a></p>
-<a href="{% url 'polls:register' %}">Create Account</a>
+<h1>👋 Welcome to Flow!</h1>
+<p><a href="{% url 'polls:schools' %}">Schools</a></p>
 {% endblock %}
