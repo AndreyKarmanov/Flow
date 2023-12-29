@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 
 class School(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
@@ -40,8 +40,8 @@ class Course(models.Model):
     def get_absolute_url(self):
         return f"/schools/{self.school.pk}/departments/{self.department.pk}/courses/{self.pk}/"
     
-class Student(AbstractUser):
-    school = models.ForeignKey(School, on_delete=models.DO_NOTHING, related_name='students')
+class Student(AbstractUser, PermissionsMixin):
+    school = models.ForeignKey(School, on_delete=models.DO_NOTHING, related_name='students', blank=True, null=True)
 
 
 class Review(models.Model):

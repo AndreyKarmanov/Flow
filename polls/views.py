@@ -68,25 +68,21 @@ class CourseView(SingleTableView):
         course = get_object_or_404(Course, pk=course_id)
         return render(request, self.template_name, {"course": course, "department": department, "school": school})
 
-
-
-class LoginView(TemplateView):
-    template_name = 'login.html'
+class RegisterView(TemplateView):
+    template_name = 'register.html'
 
     def get(self, request):
-        form = modelform_factory(Student, fields=('email',))
+        form = modelform_factory(Student, fields=('username', 'first_name', 'last_name', 'email', 'password', 'school'))
         return render(request, self.template_name, {"form": form})
     
     def post(self, request):
-        form = modelform_factory(Student, fields=('email',))(request.POST)
+        form = modelform_factory(Student, fields=('username', 'first_name', 'last_name', 'email', 'password', 'school'))(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            user = authenticate(request, username=email)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                form.add_error('email', 'Email does not exist.')
+            user: Student = form.save()
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+            return HttpResponseRedirect(reverse('polls:index'))
         return render(request, self.template_name, {"form": form})
 
 # Create your views here.

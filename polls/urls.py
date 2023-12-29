@@ -1,4 +1,5 @@
-from django.urls import path
+from django.contrib import admin, auth
+from django.urls import path, include # new
 
 from . import views
 
@@ -9,5 +10,5 @@ urlpatterns = [
     path("schools/<int:school_id>/departments/", views.SchoolView.as_view(), name="school"),
     path("schools/<int:school_id>/departments/<int:department_id>/courses/", views.DepartmentView.as_view(), name="department"),
     path("schools/<int:school_id>/departments/<int:department_id>/courses/<int:course_id>/", views.CourseView.as_view(), name="course"),
-    path("login/", views.LoginView.as_view(), name="login"),
+    path("register/", views.RegisterView.as_view(), name="register")
 ]

@@ -110,9 +110,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+#auth
 AUTH_USER_MODEL = 'polls.Student'
 
-
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
