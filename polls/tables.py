@@ -32,6 +32,27 @@ class CourseTable(tables.Table):
         verbose_name="Course",
         accessor=tables.A("name"),
     )
+
     class Meta:
         model = Course
         fields = ('code', 'name', 'department', 'credits')
+
+
+class CourseSearchTable(tables.Table):
+    course = tables.columns.Column(
+        linkify=("polls:course", [tables.A("school.pk"), tables.A("department.pk"), tables.A("pk")]),
+        verbose_name="Course",
+        accessor=tables.A("name"),
+        attrs={"a": {"href": lambda record: record.get_absolute_url()}},
+        empty_values=(),
+        orderable=False,
+    )
+
+    def render_course(self, value, record):
+        return f"{record.code} — {record.name}"
+
+    class Meta:
+        model = Course
+        show_header = False
+        attrs = {"style": "margin-bottom: 0;", "class": "table table-hover rounded"}
+        fields = ('course', 'department')

@@ -13,36 +13,29 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <div>
-                <a class="navbar-brand" href="{% url 'polls:index' %}">Flow</a>
+            <a class="navbar-brand" href="{% url 'polls:index' %}">Flow</a>
+            <!-- <nav aria-label="breadcrumb"
+                style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
+                <ol class="breadcrumb">
+                    {% block breadcrumb %}
+                    {% endblock %}
+                </ol>
+            </nav> -->
+            <div class="col-8" style="position: relative;">
+                <input id="search-input" class="form-control" name="search" type="text"
+                    hx-post="{% url 'polls:search' %}" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
+                    placeholder="Search..." hx-trigger="keyup changed delay:250ms" hx-target="#search-results"
+                    hx-swap="innerHTML">
+                <div id="search-results" style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 100;" class="border rounded shadow-lg">
+                </div>
             </div>
-            <div>
-                <nav aria-label="breadcrumb"
-                    style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
-                    <ol class="breadcrumb">
-                        {% block breadcrumb %}
-                        {% endblock %}
-                    </ol>
-                </nav>
-            </div>
-            <div>
-                {% if user.is_authenticated %}
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">logout</button>
-                </form>
-                {% if user.is_staff %}
-                <form method="get" action="{% url 'admin:index' %}">
-                    <button type="submit">admin page</button>
-                </form>
-                {% endif %}
-                {% else %}
-                <form method="get" action="{% url 'login' %}">
-                    <button type="submit">login</button>
-                </form>
-                {% endif %}
 
-            </div>
+
+            {% if user.is_authenticated %}
+            <a class="btn btn-secondary" href="{% url 'polls:profile' %}" role="button">profile</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'login' %}" role="button">login</a>
+            {% endif %}
         </div>
     </nav>
 

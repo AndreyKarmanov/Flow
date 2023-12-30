@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>you searched for {{ search.value }} !</h1>
+<p><a href="{% url 'polls:schools' %}">Schools</a></p>
+{% endblock %}

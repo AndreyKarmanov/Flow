@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+{% block header %}<h1>{{ user.username }}</h1>{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<a class="btn btn-secondary" href="{% url 'logout' %}" role="button">logout</a>
+{% if user.is_staff %}
+<a class="btn btn-secondary" href="{% url 'admin:index' %}" role="button">admin page</a>
+{% endif %}
+{% else %}
+<a class="btn btn-primary" href="{% url 'login' %}" role="button">login</a>
+{% endif %}
+{% endblock %}
