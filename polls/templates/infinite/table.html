@@ -6,7 +6,7 @@
     {% block table %}
         <table {% render_attrs table.attrs class="table" %}>
             {% block table.thead %}
-                {% if table.show_header and not table.page.has_previous %}
+                {% if table.show_header %}
                     <thead {{ table.attrs.thead.as_html }}>
                         <tr>
                             {% for column in table.columns %}
@@ -15,8 +15,8 @@
                                     hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
                                     hx-trigger="click"
                                     hx-target="#tableContainer"
+                                    hx-vals="js:{ sort: true }"
                                     hx-swap="outerHTML"
-                                    hx-indicator=".progress"
                                     style="cursor: pointer;"
                                     href="#">
                                     {{ column.header }}
@@ -25,7 +25,6 @@
                                 {{ column.header }}
                                 {% endif %}
                             {% endfor %}
-                            
                         </tr>
                     </thead>
                 {% endif %}
@@ -34,7 +33,8 @@
                 <tbody {{ table.attrs.tbody.as_html }}>
                 {% for row in table.paginated_rows %}
                     {% block table.tbody.row %}
-                    <tr {{ row.attrs.as_html }}>
+                    <tr  {{ row.attrs.as_html }} {% if forloop.last and table.page.has_next %} hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}" hx-trigger="revealed" hx-swap="afterend" hx-vals="js:{ scroll: true }" {% endif %}>
+
                         {% for column, cell in row.items %}
                             <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
                         {% endfor %}
@@ -47,13 +47,6 @@
                     {% endblock table.tbody.empty_text %}
                     {% endif %}
                 {% endfor %}
-                <div hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}"
-                    hx-trigger="revealed"
-                    hx-indicator=".progress"
-                    hx-swap="outerHTML"
-                    class="page-link">
-                </div>
-
                 </tbody>
             {% endblock table.tbody %}
             {% block table.tfoot %}
@@ -68,14 +61,6 @@
             {% endif %}
             {% endblock table.tfoot %}
         </table>
-        {% if table.page and table.paginator.num_pages > 1 %}
-            {% if table.page.has_next %}
-
-            {% endif %}
-        {% endif %}
     {% endblock table %}
-
-    {% block pagination %}
-    {% endblock pagination %}
 </div>
 {% endblock table-wrapper %}

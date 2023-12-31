@@ -1,0 +1,12 @@
+{% load django_tables2 %}
+{% load i18n l10n %}
+{% for row in table.paginated_rows %}
+    {% block table.tbody.row %}
+    <tr {{ row.attrs.as_html }} {% if forloop.last and table.page.has_next %}  hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}" hx-trigger="revealed" hx-swap="afterend" {% endif %}>
+
+        {% for column, cell in row.items %}
+            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+        {% endfor %}
+    </tr>
+{% endblock table.tbody.row %}
+{% endfor %}
