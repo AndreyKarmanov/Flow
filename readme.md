@@ -1,9 +1,10 @@
 ### this actually runs pretty well. You can try it on your own machine if you want.
 
-1. clone the repo
-2. run `pip install -r requirements.txt`
-3. run `python manage.py runserver`
-4. go to `http://127.0.0.1:8000/` in your browser
+1. clone the repo with `git clone ...`
+2. pull the large files with `git lfs pull`
+3. run `pip install -r requirements.txt`
+4. run `python manage.py runserver`
+5. go to `http://127.0.0.1:8000/` in your browser
 
 isn't hosted yet for all to see, but will be soon enough.
 
