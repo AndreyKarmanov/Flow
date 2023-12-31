@@ -6,12 +6,12 @@
     </a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{% url 'polls:school' school.pk %}">
+    <a href="{% url 'polls:departments' school.pk %}">
         {{ school.name }}
     </a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{% url 'polls:department' school.pk department.pk %}">
+    <a href="{% url 'polls:courses' school.pk department.pk %}">
         {{ department.name }}
     </a>
 </li>

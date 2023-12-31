@@ -44,7 +44,11 @@ class Course(models.Model):
 class Review(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    
     rating = models.IntegerField(blank=False, null=False, choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+    difficulty = models.IntegerField(blank=False, null=False, choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+    useful = models.IntegerField(blank=False, null=False, choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+
     comment = models.CharField(max_length=500, blank=True, null=True)
     lastUpdated = models.DateTimeField(auto_now=True)
     anonymous = models.BooleanField(default=False)
