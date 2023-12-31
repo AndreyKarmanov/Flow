@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block content %}
 <h1>Login</h1>
-<form method="get" action="{% url 'polls:register' %}">
-    <button type="submit">Create Account</button>
-</form>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button type="submit" class="btn btn-primary">Login</button>
 </form>
+<br>
+<a class="btn btn-secondary" href="{% url 'polls:register' %}" role="button">Create Account</a>
+
 {% endblock %}

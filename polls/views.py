@@ -12,6 +12,8 @@ from .tables import SchoolTable, DepartmentTable, CourseTable, CourseSearchTable
 from .models import School, Department, Course
 from .forms import RegisterForm
 
+import uuid
+
 class HtmxHttpRequest(HttpRequest):
     htmx: HtmxDetails
 
@@ -29,13 +31,13 @@ class SchoolsView(SingleTableView):
         schoolTable = self.table_class(schools)
         RequestConfig(request, paginate={
                       'per_page': self.paginate_by}).configure(schoolTable)
-        return render(request, self.template_name, {"schoolTable": schoolTable})
+        return render(request, self.template_name, {"table": schoolTable})
 
 
 class SchoolView(SingleTableView):
     table_class = DepartmentTable
     template_name = 'school.html'
-    paginate_by = 10
+    paginate_by = 5
 
     def get(self, request, school_id):
         school = get_object_or_404(School, pk=school_id)
@@ -43,7 +45,7 @@ class SchoolView(SingleTableView):
         departmentTable = self.table_class(queryset)
         RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(
             departmentTable)
-        return render(request, self.template_name, {"departmentTable": departmentTable, "school": school})
+        return render(request, self.template_name, {"table": departmentTable, "school": school, "unique_id": uuid.uuid4()})
 
 
 class DepartmentView(SingleTableView):
@@ -56,10 +58,13 @@ class DepartmentView(SingleTableView):
         department = get_object_or_404(Department, pk=department_id)
         queryset = department.courses.all()
         courseTable = self.table_class(queryset)
-        RequestConfig(request, paginate={
-                      'per_page': self.paginate_by}).configure(courseTable)
-
-        return render(request, self.template_name, {"courseTable": courseTable, "department": department, "school": school})
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(courseTable)
+        uid = str(uuid.uuid4())
+        print(uid[:5])
+        if request.htmx:
+            return render(request, 'base/table.html', {'table': courseTable, 'department': department, 'school': school, 'unique_id': uid})
+        
+        return render(request, self.template_name, {"table": courseTable, "department": department, "school": school, "unique_id": uid})
 
 
 class CourseView(SingleTableView):

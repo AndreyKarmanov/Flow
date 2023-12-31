@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block breadcrumb %}
 <li class="breadcrumb-item">
@@ -14,6 +14,5 @@
 {% endblock %}
 {% block content %}
 <h1>{{ school.name }}</h1>
-{% load render_table from django_tables2 %}
-{% render_table departmentTable %}
+{% extends 'base/table.html' %}
 {% endblock %}

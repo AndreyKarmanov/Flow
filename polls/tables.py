@@ -23,7 +23,7 @@ class DepartmentTable(tables.Table):
 
     class Meta:
         model = Department
-        fields = ('name', 'school', 'description')
+        fields = ('name', 'school')
 
 
 class CourseTable(tables.Table):
@@ -35,6 +35,7 @@ class CourseTable(tables.Table):
 
     class Meta:
         model = Course
+        template_name = "base/table.html"
         fields = ('code', 'name', 'department', 'credits')
 
 
