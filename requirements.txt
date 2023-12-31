@@ -1,4 +1,3 @@
-asgiref
 Django
 django-extensions
 django-filter
@@ -6,9 +5,3 @@ django-htmx
 django-tables2
 numpy
 pandas
-python-dateutil
-pytz
-six
-sqlparse
-typing_extensions
-tzdata
