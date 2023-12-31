@@ -6,7 +6,7 @@
 1. nice course layout, with bars n stuff? 
 2. reviews are needed
 3. much better layout for website
-4. redo like all the css to make it look nice (lol!)
+4. redo like all the css to make it look nice (lol how fun!)
 
 ### touched
 1. search for course is working
