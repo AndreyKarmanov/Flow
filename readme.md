@@ -35,3 +35,4 @@ scraping good quality data across universities - use ai on crawled pages
 2. flashcards and resources for the classes
 3. blogposting / about page
 4. ai summaries / review improvers (suggest things)
+5. cool stats on the courses, like how many people took it, how many people liked it, etc

@@ -38,14 +38,14 @@ class SchoolView(SingleTableView):
     template_name = 'school.html'
     paginate_by = 10
 
-    def get(self, request: HtmxHttpRequest, school_id):
+    def get(self, request: HtmxHttpRequest, school_id: int):
         school = get_object_or_404(School, pk=school_id)
         queryset = school.departments.all()
         departmentTable = self.table_class(queryset)
         RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(departmentTable)
 
-        if request.htmx:
-            return render(request, 'base/table.html', {'table': departmentTable, 'school': school})
+        if request.htmx and request.GET.get('scroll', False):
+            return render(request, 'infinite/table.html', {'table': departmentTable, 'school': school})
 
         return render(request, self.template_name, {'table': departmentTable, 'school': school})
     
@@ -109,7 +109,7 @@ class CourseView(SingleTableView):
     template_name = 'course.html'
     paginate_by = 10
 
-    def get(self, request: HtmxHttpRequest, school_id, department_id, course_id):
+    def get(self, request: HtmxHttpRequest, school_id: int, department_id: int, course_id: int):
         school = get_object_or_404(School, pk=school_id)
         department = get_object_or_404(Department, pk=department_id)
         course = get_object_or_404(Course, pk=course_id)
@@ -154,3 +154,8 @@ class SearchView(TemplateView):
 
         return render(request, 'base/table.html', {'table': table, 'search_value': searchValue})
            
+class TempView(TemplateView):
+    template_name = 'temp.html'
+
+    def get(self, request: HtmxHttpRequest):
+        return render(request, self.template_name)
