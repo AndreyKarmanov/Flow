@@ -36,3 +36,6 @@ scraping good quality data across universities - use ai on crawled pages
 3. blogposting / about page
 4. ai summaries / review improvers (suggest things)
 5. cool stats on the courses, like how many people took it, how many people liked it, etc
+6. steam like reviews (funny reviews, helpful reviews, etc)
+7. course recommendations (based on what you've taken, what you like, etc)
+8. steam like ratings (mostly positive, mostly negative etc. , etc)

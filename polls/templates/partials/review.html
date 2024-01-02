@@ -1,66 +1,36 @@
 <div class="container">
     <form>
         <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="reviewEffort" class="col-form-label">Hours a week</label>
+            </div>
             <div class="col-sm-10">
-                <label for="reviewRating" class="col-form-label">Don't take it</label>
-                <input type="range" class="form-control-range" id="reviewRating" min="1" max="5" step="1" onchange="updateRatingLabel(this.value)">
-                <label id="ratingLabel" for="reviewRating" class="col-form-label">Yeah, take it!</label>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var reviewRating = document.getElementById("reviewRating");
-
-                    reviewRating.addEventListener("input", function() {
-                        var ratingValue = parseInt(reviewRating.value);
-                        var labelText = "";
-
-                        switch (ratingValue) {
-                            case 1:
-                                labelText = "Terrible";
-                                break;
-                            case 2:
-                                labelText = "Bad";
-                                break;
-                            case 3:
-                                labelText = "Average";
-                                break;
-                            case 4:
-                                labelText = "Good";
-                                break;
-                            case 5:
-                                labelText = "Excellent";
-                                break;
-                            default:
-                                labelText = "Unknown";
-                                break;
-                        }
-
-                        ratingLabel.textContent = labelText;
-                    });
-                });
-            </script>
-            </div>
-                
+                <input type="range" class="form-control-range" id="reviewEffort" min="0" max="9" step="1">
+                <label id="reviewEffortLabel" for="reviewEffort" class="col-form-label">Effort Required</label>
             </div>
         </div>
         <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="reviewUseful" class="col-form-label">Applicability</label>
+            </div>
             <div class="col-sm-10">
-                <label for="reviewDifficulty" class="col-form-label">Easy</label>
-                <input type="range" class="form-control-range" id="reviewDifficulty" min="1" max="5" step="1">
-                <label for="reviewDifficulty" class="col-form-label">Effort Required</label>
+                <input type="range" class="form-control-range" id="reviewUseful" min="0" max="4" step="1">
+                <label id="reviewUsefulLabel" for="reviewUseful" class="col-form-label">Foundational</label>
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-sm-10">
-                <label for="reviewUseful" class="col-form-label">Worthless</label>
-                <input type="range" class="form-control-range" id="reviewUseful" min="1" max="5" step="1">
-                <label for="reviewUseful" class="col-form-label">Foundational</label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <textarea class="form-control" id="reviewComment" rows="3"
-                    placeholder="Enter review comment"></textarea>
+                placeholder="Enter review comment"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label for="reviewRating" class="col-form-label">Overall</label>
+            </div>
+            <div class="col-sm-10">
+                <input type="range" class="form-control-range" id="reviewRating" min="0" max="4" step="1">
+                <label id="ratingLabel" for="reviewRating" class="col-form-label">Average</label>
             </div>
         </div>
         <div class="form-group row">
@@ -77,3 +47,32 @@
             </div>
     </form>
 </div>
+<script>
+    const reviewRating = document.getElementById("reviewRating");
+    const reviewLabel = document.getElementById("ratingLabel");
+    const reviewLabels = ["Poor", "Subpar", "Average", "Good", "Excellent"];
+
+    reviewRating.textContent = reviewLabels[parseInt(reviewRating.value)];    
+    reviewRating.addEventListener("input", function (value) {
+        reviewLabel.textContent = reviewLabels[parseInt(value.target.value)];
+    });
+    
+
+    const reviewEffort = document.getElementById("reviewEffort");
+    const reviewEffortLabel = document.getElementById("reviewEffortLabel");
+    const reviewEffortLabels = ["<0", "1", "2", "3", "4", "5", "6", "7", "8", "9+"];
+
+    reviewEffortLabel.textContent = reviewEffortLabels[parseInt(reviewEffort.value)];    
+    reviewEffort.addEventListener("input", function (value) {
+        reviewEffortLabel.textContent = reviewEffortLabels[parseInt(value.target.value)];
+    });
+
+    const reviewUseful = document.getElementById("reviewUseful");
+    const reviewUsefulLabel = document.getElementById("reviewUsefulLabel");
+    const reviewUsefulLabels = ["Never Useful", "Specific Knowledge", "Average", "Above Average", "Foundational"];
+    
+    reviewUsefulLabel.textContent = reviewUsefulLabels[parseInt(reviewUseful.value)];
+    reviewUseful.addEventListener("input", function (value) {
+        reviewUsefulLabel.textContent = reviewUsefulLabels[parseInt(value.target.value)];
+    });
+</script>
