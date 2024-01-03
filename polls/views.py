@@ -109,10 +109,10 @@ class CourseView(SingleTableView):
     template_name = 'course.html'
     paginate_by = 10
 
-    def get(self, request: HtmxHttpRequest, school_id: int, department_id: int, course_id: int):
+    def get(self, request: HtmxHttpRequest, school_id: int, course_id: int):
         school = get_object_or_404(School, pk=school_id)
-        department = get_object_or_404(Department, pk=department_id)
         course = get_object_or_404(Course, pk=course_id)
+        department = course.department
 
         return render(request, self.template_name, {"course": course, "department": department, "school": school})
 

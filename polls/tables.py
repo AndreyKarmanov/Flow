@@ -4,7 +4,7 @@ from .models import School, Department, Course
 
 class SchoolTable(tables.Table):
     name = tables.columns.Column(
-        linkify=("polls:departments", [tables.A("pk")]),
+        linkify=("polls:courses", [tables.A("pk")]),
         verbose_name="School",
         accessor=tables.A("name"),
     )
@@ -16,7 +16,7 @@ class SchoolTable(tables.Table):
 
 class DepartmentTable(tables.Table):
     name = tables.columns.Column(
-        linkify=("polls:courses", [tables.A("school.pk"), tables.A("pk")]),
+        linkify=("polls:depatment", [tables.A("school.pk"), tables.A("pk")]),
         verbose_name="Department",
         accessor=tables.A("name"),
     )
