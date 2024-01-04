@@ -3,5 +3,3 @@ django-extensions
 django-filter
 django-htmx
 django-tables2
-numpy
-pandas
