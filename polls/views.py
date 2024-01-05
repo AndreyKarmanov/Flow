@@ -4,22 +4,33 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_POST, require_GET
 from django.db.models import Q
+from django_nextjs.render import render_nextjs_page_sync
 
 from django_tables2 import SingleTableView, RequestConfig
 from django_htmx.middleware import HtmxDetails
 
+from rest_framework import generics
+
 from .tables import SchoolTable, DepartmentTable, CourseTable, CourseSearchTable
 from .models import School, Department, Course
 from .forms import RegisterForm
+from .serializers import SchoolSerializer, CourseSerializer, DepartmentSerializer, ReviewSerializer
+
 
 
 class HtmxHttpRequest(HttpRequest):
     htmx: HtmxDetails
 
-
-@require_GET
 def index(request):
-    return render(request, "index.html")
+    return render_nextjs_page_sync(request)
+
+def register(request):
+    return render_nextjs_page_sync(request)
+
+class DepartmentListView(generics.ListAPIView):
+    lookup_field = "school_id"
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
 
 class SchoolsView(SingleTableView):
     table_class = SchoolTable
