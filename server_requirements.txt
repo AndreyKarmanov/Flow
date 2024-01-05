@@ -1,5 +1,0 @@
-Django
-django-extensions
-django-filter
-django-htmx
-django-tables2
