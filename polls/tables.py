@@ -4,7 +4,7 @@ from .models import School, Department, Course
 
 class SchoolTable(tables.Table):
     name = tables.columns.Column(
-        linkify=("polls:school", [tables.A("pk")]),
+        linkify=("polls:courses", [tables.A("pk")]),
         verbose_name="School",
         accessor=tables.A("name"),
     )
@@ -16,7 +16,7 @@ class SchoolTable(tables.Table):
 
 class DepartmentTable(tables.Table):
     name = tables.columns.Column(
-        linkify=("polls:courses", [tables.A("school.pk"), tables.A("pk")]),
+        linkify=("polls:depatment", [tables.A("school.pk"), tables.A("pk")]),
         verbose_name="Department",
         accessor=tables.A("name"),
     )
@@ -35,7 +35,7 @@ class CourseTable(tables.Table):
 
     class Meta:
         model = Course
-        template_name = "base/table.html"
+        template_name = "infinite/table.html"
         fields = ('code', 'name', 'department', 'credits')
 
 
@@ -55,5 +55,6 @@ class CourseSearchTable(tables.Table):
     class Meta:
         model = Course
         show_header = False
+        template_name = "infinite/table.html"
         attrs = {"style": "margin-bottom: 0;", "class": "table table-hover rounded"}
         fields = ('course', 'department')
