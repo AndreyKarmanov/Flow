@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'django_htmx',
+    'django_nextjs',
+    'rest_framework',
+    'corsheaders',
     'polls.apps.PollsConfig',
     'django_extensions',
     'django.contrib.admin',
@@ -46,9 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_nextjs',
-    'rest_framework',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
