@@ -1,7 +1,9 @@
+django
 django-filter
 django-htmx
 django-tables2
 django-nextjs
+django-extensions
 djangorestframework
 numpy
 pandas
