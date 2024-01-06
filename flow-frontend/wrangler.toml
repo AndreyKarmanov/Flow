@@ -1,0 +1,9 @@
+name = "my-vercel-app"
+type = "javascript"
+
+account_id = "<your-account-id>"
+workers_dev = true
+
+[site]
+bucket = "./.vercel/output"
+entry-point = "index.html"
