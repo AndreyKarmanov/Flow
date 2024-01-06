@@ -6,15 +6,16 @@ class SchoolSerializer(serializers.ModelSerializer):
         model = School
         fields = ["name", "country", "website", "description"]
 
-class CourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = ["code", "name", "school", "department", "description", "credits", "url", "lastUpdated", "extra"]
-
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
         fields = ["name", "school", "lastUpdated"]
+
+class CourseSerializer(serializers.ModelSerializer):
+    department_name = serializers.CharField(source='department.name', read_only=True) 
+    class Meta:
+        model = Course
+        fields = ["code", "department_name", "name", "school", "department", "description", "credits", "url", "lastUpdated", "extra"]
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:

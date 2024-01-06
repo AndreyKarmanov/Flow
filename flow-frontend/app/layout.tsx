@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Kadwa } from "next/font/google";
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+const kadwa = Kadwa({
+  subsets: ["devanagari"],
+  weight: ["400", "700"],
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${kadwa.className} ${inter.className}`}>{children}</body>
     </html>
-  )
+  );
 }

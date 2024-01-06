@@ -13,6 +13,12 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        "kadwa": ['Kadwa', 'serif'],
+      }
+    },
+    colors: {
+      'blue': '#032DC2',
     },
   },
   plugins: [],

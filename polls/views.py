@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 from django.views.decorators.http import require_POST, require_GET
 from django.db.models import Q
-from django_nextjs.render import render_nextjs_page_sync
+from django_nextjs.render import render_nextjs_page_sync, render_nextjs_page
 
 from django_tables2 import SingleTableView, RequestConfig
 from django_htmx.middleware import HtmxDetails
@@ -21,30 +21,29 @@ from .serializers import SchoolSerializer, CourseSerializer, DepartmentSerialize
 class HtmxHttpRequest(HttpRequest):
     htmx: HtmxDetails
 
-def index(request):
-    return render_nextjs_page_sync(request)
+async def index(request):
+    return await render_nextjs_page(request)
 
-def register(request):
-    return render_nextjs_page_sync(request)
+class SchoolListView(generics.ListAPIView):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
 
 class DepartmentListView(generics.ListAPIView):
     lookup_field = "school_id"
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
 
-class SchoolsView(SingleTableView):
-    table_class = SchoolTable
-    template_name = 'schools.html'
-    paginate_by = 10
+class CourseListView(generics.ListAPIView):
+    lookup_field = "school_id"
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 
-    def get(self, request: HtmxHttpRequest):
-        schools = School.objects.all()
-        schoolTable = self.table_class(schools)
-        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(schoolTable)
-        return render(request, self.template_name, {"table": schoolTable})
+class CourseDetailView(generics.RetrieveAPIView):
+    lookup_field = "id"
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 
-
-class SchoolView(SingleTableView):
+class InfiniteSchools(SingleTableView):
     table_class = DepartmentTable
     template_name = 'school.html'
     paginate_by = 10
