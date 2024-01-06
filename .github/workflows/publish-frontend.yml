@@ -13,7 +13,7 @@ jobs:
 
       # Run a build step here if your project requires
       - name: build
-        run: npx vercel build
+        run: npm run build
         working-directory: flow-frontend
 
       - name: Publish to Cloudflare Pages
