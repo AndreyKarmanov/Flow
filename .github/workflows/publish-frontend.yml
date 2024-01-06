@@ -12,6 +12,8 @@ jobs:
         uses: actions/checkout@v3
 
       # Run a build step here if your project requires
+      - name: build
+        run: npx vercel build
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
