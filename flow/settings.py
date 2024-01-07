@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'django_htmx',
     'django_browser_reload',
+    'widget_tweaks',
     'polls.apps.PollsConfig',
     'django_extensions',
     'django.contrib.admin',

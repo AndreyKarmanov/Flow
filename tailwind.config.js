@@ -15,9 +15,6 @@ module.exports = {
         'kadwa': ['kadwaregular', 'serif'],
       },
     },
-    fontFamily: {
-      sans: ['kadwaregular', 'serif'],
-    },
   },
   plugins: [],
 }
