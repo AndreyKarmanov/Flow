@@ -11,14 +11,14 @@
     <link href="{% static 'fonts/kadwa/stylesheet.css' %}" type="text/css" charset="utf-8" rel="stylesheet">
 </head>
 
-<body class="font-kadwa">
+<body class="font-kadwa-bold">
     <nav class="p-4 bg-blue-700">
         <div class="container mx-auto grid grid-cols-1 gap-4  md:grid-cols-4 md:gap-8">
             <!-- Logo -->
             <a class="text-4xl text-white col-span-1 text-center" href="{% url 'polls:index' %}">FLOW</a>
 
             <!-- Search Bar -->
-            <div class="flex border-4 font-kadwa-bold border-black bg-white pt-1 flex-1 col-span-2 relative">
+            <div class="flex border-4 border-black bg-white pt-1 flex-1 col-span-2 relative">
                 <input id="search-input" class="w-full focus:outline-none" name="search" type="text"
                     hx-post="{% url 'polls:search' %}" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
                     hx-trigger="keyup changed delay:250ms" hx-target="#search-results" hx-swap="innerHTML"

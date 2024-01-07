@@ -4,10 +4,10 @@
 
 @font-face {
     font-family: 'kadwabold';
-    src: url('Kadwa-Bold.ttf') format('tff');
+    src: url('kadwa-bold-webfont.woff2') format('woff2'),
+         url('kadwa-bold-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 
@@ -15,7 +15,9 @@
 
 @font-face {
     font-family: 'kadwaregular';
-    src: url('Kadwa-Regular.ttf') format('tff');
+    src: url('kadwa-regular-webfont.woff2') format('woff2'),
+         url('kadwa-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+
 }

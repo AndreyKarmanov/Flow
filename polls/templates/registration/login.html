@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="border-2 border-black inline-block p-4 shadow-blue-700 bg-white gap-28 w-70">
+<div class="border-2 border-black inline-block p-4 shadow-signature bg-white gap-28 w-70">
     <h2 class="font-bold text-black text-center block w-full">LOGIN</h2>
     <form method="post" class="inline-block gap-8 p-2 w-full">
         {% csrf_token %}
@@ -21,5 +21,4 @@
         </div>
     </form>
 </div>
-
 {% endblock %}

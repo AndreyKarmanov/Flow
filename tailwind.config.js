@@ -14,6 +14,9 @@ module.exports = {
         'kadwa-bold': ['kadwabold', 'serif'],
         'kadwa': ['kadwaregular', 'serif'],
       },
+      boxShadow: {
+        'signature': '14px 14px blue',
+      },
     },
   },
   plugins: [],
