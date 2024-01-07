@@ -6,8 +6,8 @@ from . import views
 app_name = "polls" # why are the nameing conventions different here? kind of annoying
 urlpatterns = [
     path("", views.index, name="index"),
-    path("schools/", views.SchoolsView.as_view(), name="schools"),
-    path("schools/<int:school_id>", views.InfiniteCourses.as_view(), name="school"),
+    path("schools/", views.InfiniteSchools.as_view(), name="schools"),
+    path("schools/<int:school_id>", views.SchoolView.as_view(), name="school"),
     path("schools/<int:school_id>/courses", views.InfiniteCourses.as_view(), name="courses"),
     path("schools/<int:school_id>/departments/", views.InfiniteDepartments.as_view(), name="departments"),
     path("schools/<int:school_id>/departments/<int:department_id>/", views.InfiniteCourses.as_view(), name="department"), # add department description at the top

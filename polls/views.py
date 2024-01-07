@@ -21,33 +21,26 @@ class HtmxHttpRequest(HttpRequest):
 def index(request):
     return render(request, "index.html")
 
-class SchoolsView(SingleTableView):
+class InfiniteSchools(SingleTableView):
     table_class = SchoolTable
-    template_name = 'schools.html'
-    paginate_by = 10
-
-    def get(self, request: HtmxHttpRequest):
-        schools = School.objects.all()
-        schoolTable = self.table_class(schools)
-        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(schoolTable)
-        return render(request, self.template_name, {"table": schoolTable})
-
-
-class SchoolView(SingleTableView):
-    table_class = DepartmentTable
     template_name = 'school.html'
     paginate_by = 10
 
-    def get(self, request: HtmxHttpRequest, school_id: int):
-        school = get_object_or_404(School, pk=school_id)
-        queryset = school.departments.all()
-        departmentTable = self.table_class(queryset)
-        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(departmentTable)
+    def get(self, request: HtmxHttpRequest):
+        queryset = School.objects.all()
+        schoolTable = self.table_class(queryset)
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(schoolTable)
 
-        if request.htmx and request.GET.get('scroll', False):
-            return render(request, 'infinite/table.html', {'table': departmentTable, 'school': school})
+        if not request.htmx:
+            return render(request, self.template_name, {'table': schoolTable})
 
-        return render(request, self.template_name, {'table': departmentTable, 'school': school})
+        if request.GET.get('scroll', False):
+            return render(request, 'infinite/partial.html', {'table': schoolTable})
+
+        if request.GET.get('sort', False):
+            return render(request, 'infinite/table.html', {'table': schoolTable})
+
+        return render(request, 'base/empty.html')
     
 class InfiniteDepartments(SingleTableView):
     table_class = DepartmentTable
@@ -104,14 +97,31 @@ class InfiniteCourses(SingleTableView):
         
         return render(request, 'base/empty.html')
 
+
+class SchoolView(SingleTableView):
+    table_class = DepartmentTable
+    template_name = 'school.html'
+    paginate_by = 10
+
+    def get(self, request: HtmxHttpRequest, school_id: int):
+        school = get_object_or_404(School, pk=school_id)
+        queryset = school.departments.all()
+        departmentTable = self.table_class(queryset)
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(departmentTable)
+
+        if request.htmx and request.GET.get('scroll', False):
+            return render(request, 'infinite/table.html', {'table': departmentTable, 'school': school})
+
+        return render(request, self.template_name, {'table': departmentTable, 'school': school})
+
 class CourseView(SingleTableView):
     table_class = CourseTable
     template_name = 'course.html'
     paginate_by = 10
 
-    def get(self, request: HtmxHttpRequest, school_id: int, course_id: int):
-        school = get_object_or_404(School, pk=school_id)
+    def get(self, request: HtmxHttpRequest, school_id: int, department_id: int, course_id: int):
         course = get_object_or_404(Course, pk=course_id)
+        school = course.school
         department = course.department
 
         return render(request, self.template_name, {"course": course, "department": department, "school": school})

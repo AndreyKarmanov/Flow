@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'django_htmx',
+    'django_browser_reload',
     'polls.apps.PollsConfig',
     'django_extensions',
     'django.contrib.admin',
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'flow.urls'

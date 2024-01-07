@@ -7,36 +7,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Flow{% endblock %}</title>
-    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'output.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/kadwa/stylesheet.css' %}" type="text/css" charset="utf-8" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-BB/B8MdPBV2GO4OdKvMlgeuW5sGEv+/yNz83gkDoeuvhwZIvUWo0pfq4ih2zOInNh1eAwjB/DoFIm9IP9S55Xg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'polls:index' %}">Flow</a>
-            <div class="col-8" style="position: relative;">
-                <input id="search-input" class="form-control" name="search" type="text"
-                    hx-post="{% url 'polls:search' %}" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
-                    placeholder="Search..." hx-trigger="keyup changed delay:250ms" hx-target="#search-results"
-                    hx-swap="innerHTML">
-                <div id="search-results" style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 100;" class="border rounded shadow-lg">
+<body class="font-kadwa">
+    <nav class="p-4 bg-blue-700">
+        <div class="container mx-auto grid grid-cols-4 gap-8 items-center">
+            <!-- Logo -->
+            <a class="text-4xl font-bold text-white col-span-1 text-center" href="{% url 'polls:index' %}">FLOW</a>
+
+            <!-- Search Bar -->
+            <div class="flex-1 col-span-2 relative">
+                <div class="flex items-center border-4 border-black bg-white">
+                    <span class="ml-4">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input id="search-input"
+                        class="w-full font-kadwa-bold py-2 px-4 focus:outline-none focus:border-blue-500"
+                        name="search" type="text" hx-post="{% url 'polls:search' %}"
+                        hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
+                        hx-trigger="keyup changed delay:250ms" hx-target="#search-results" hx-swap="innerHTML"
+                        autocomplete="off">
+                </div>
+                <div id="search-results" class="absolute top-full left-0 w-full bg-white shadow-md mt-2">
+                    <!-- Add search results content here -->
                 </div>
             </div>
 
-
-            {% if user.is_authenticated %}
-            <a class="btn btn-secondary" href="{% url 'polls:profile' %}" role="button">profile</a>
-            {% else %}
-            <a class="btn btn-primary" href="{% url 'login' %}" role="button">login</a>
-            {% endif %}
+            <!-- User Actions -->
+            <div class="col-span-1 flex justify-center space-x-4">
+                {% if user.is_authenticated %}
+                <a class="bg-blue-500 text-white py-2 px-4 hover:bg-blue-700" href="{% url 'polls:profile' %}"
+                    role="button">PROFILE</a>
+                <a class="text-white hover:text-gray-300" href="{% url 'login' %}" role="button">LOGIN</a>
+                {% else %}
+                <a class="text-2xl font-semibold text-white py-2 px-4" href="{% url 'login' %}"
+                    role="button">LOGIN</a>
+                <a class="text-2xl font-semibold bg-white text-black py-2 px-4 hover:bg-gray-300" href="{% url 'polls:register' %}"
+                    role="button">SIGN UP</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
+    <div>
+        {% block header %}
+        {% endblock %}
+    </div>
 
-    <div class="container">
-        <div>
-            {% block header %}
-            {% endblock %}
-        </div>
+    <div class="container mx-auto mt-8">
         {% block content %}
         {% endblock %}
     </div>

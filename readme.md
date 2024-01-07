@@ -1,3 +1,6 @@
+### running the tailwind 
+1. download the standalone tailwind executable from [here](https://tailwindcss.com/blog/standalone-cli)
+2. run `tailwindcss-windows-x64.exe -i .\static\input.css -o .\static\output.css --watch` (or whatever the executable is)
 ### this actually runs pretty well. You can try it on your own machine if you want.
 
 1. clone the repo with `git clone ...`
