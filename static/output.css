@@ -696,6 +696,14 @@ p {
   width: 2rem;
 }
 
+.w-64 {
+  width: 16rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }

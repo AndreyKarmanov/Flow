@@ -4,10 +4,10 @@
 <!-- dont' use any of the table.attrs things because then tailwind won't pick it up (I thinks) -->
 <div class="grid grid-cols-5" id="tableContainer">
     {% block table %}
-        <table class="col-span-3 table-fixed bg-white w-max">
+        <table class="col-span-3 table-fixed bg-white">
             {% block table.thead %}
                 {% if table.show_header %}
-                    <thead class="text-blue text-left font-semibold text-2xl w-full">
+                    <thead class="text-blue text-left font-semibold text-2xl">
                         <tr>
                             {% for column in table.columns %}
                             {% if column.orderable %}
