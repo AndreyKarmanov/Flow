@@ -801,7 +801,7 @@ p {
   text-decoration-line: underline;
 }
 
-.shadow-\[14px_14px_blue\] {
+.shadow-signature {
   --tw-shadow: 14px 14px blue;
   --tw-shadow-colored: 14px 14px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -812,14 +812,6 @@ p {
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
-
-.shadow-signature {
-  --tw-shadow: 14px 14px blue;
-  --tw-shadow-colored: 14px 14px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-/* @import url('https://fonts.googleapis.com/css2?family=Kadwa:wght@400;700&display=swap'); */
 
 :root {
   --foreground-rgb: 0, 0, 0;
