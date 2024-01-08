@@ -1,6 +1,8 @@
 ### running the tailwind 
 1. download the standalone tailwind executable from [here](https://tailwindcss.com/blog/standalone-cli)
-2. run `tailwindcss-windows-x64.exe -i .\static\input.css -o .\static\output.css --watch` (or whatever the executable is)
+2. run `tailwindcss-windows-x64.exe -i .\static\input.css -o .\static\output.css --watch`
+3. if on macos run `./tailwindcss-macos-x64 -i ./static/input.css -o ./static/output.css --watch`
+
 ### this actually runs pretty well. You can try it on your own machine if you want.
 
 1. clone the repo with `git clone ...`
@@ -19,7 +21,7 @@ isn't hosted yet for all to see, but will be soon enough.
 
 ### todo!
 
-1. [x] login page
+1. [x] login page (sorta)
 2. [ ] signup page
 3. [ ] home page
 4. [ ] course page
