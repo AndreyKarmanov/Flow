@@ -11,7 +11,7 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        'kadwa-bold': ['kadwabold', 'serif'],
+        'kadwa-bold': ['Kadwa', 'serif'],
         'kadwa': ['kadwaregular', 'serif'],
       },
       boxShadow: {

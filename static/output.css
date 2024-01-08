@@ -697,10 +697,6 @@ p {
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .border-2 {
   border-width: 2px;
 }
@@ -714,14 +710,14 @@ p {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .bg-blue {
   --tw-bg-opacity: 1;
   background-color: rgb(3 45 194 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .p-2 {
@@ -751,7 +747,7 @@ p {
 }
 
 .font-kadwa-bold {
-  font-family: kadwabold, serif;
+  font-family: Kadwa, serif;
 }
 
 .text-2xl {
@@ -782,21 +778,20 @@ p {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .text-blue {
   --tw-text-opacity: 1;
   color: rgb(3 45 194 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .underline {
   text-decoration-line: underline;
 }
 
-.shadow-signature {
 .shadow-signature {
   --tw-shadow: 14px 14px blue;
   --tw-shadow-colored: 14px 14px var(--tw-shadow-color);
