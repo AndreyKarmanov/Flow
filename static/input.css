@@ -6,7 +6,7 @@
 
 @layer base {
   h1 {
-    @apply text-7xl font-bold text-blue-700;
+    @apply text-7xl font-bold text-blue;
   }
 
   h2 {

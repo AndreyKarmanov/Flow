@@ -17,6 +17,9 @@ module.exports = {
       boxShadow: {
         'signature': '14px 14px blue',
       },
+      colors: {
+        'blue': '#032DC2',
+      },
     },
   },
   plugins: [],
