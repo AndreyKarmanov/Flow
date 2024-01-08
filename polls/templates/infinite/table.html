@@ -1,23 +1,22 @@
 {% load django_tables2 %}
 {% load i18n l10n %}
 {% block table-wrapper %}
-
-<div class="table-container" id="tableContainer">
+<!-- dont' use any of the table.attrs things because then tailwind won't pick it up (I thinks) -->
+<div class="grid grid-cols-5" id="tableContainer">
     {% block table %}
-        <table {% render_attrs table.attrs class="table" %}>
+        <table class="col-span-3 table-fixed bg-white w-max">
             {% block table.thead %}
                 {% if table.show_header %}
-                    <thead {{ table.attrs.thead.as_html }}>
+                    <thead class="text-blue text-left font-semibold text-2xl w-full">
                         <tr>
                             {% for column in table.columns %}
                             {% if column.orderable %}
-                                <th {{ column.attrs.th.as_html }}
+                                <th class="cursor-pointer {{ column.attrs.th.class }}" 
                                     hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
                                     hx-trigger="click"
                                     hx-target="#tableContainer"
                                     hx-vals="js:{ sort: true }"
                                     hx-swap="outerHTML"
-                                    style="cursor: pointer;"
                                     href="#">
                                     {{ column.header }}
                                 </th>
@@ -30,13 +29,19 @@
                 {% endif %}
             {% endblock table.thead %}
             {% block table.tbody %}
-                <tbody {{ table.attrs.tbody.as_html }}>
+                <tbody  class="border-4 border-black">
                 {% for row in table.paginated_rows %}
                     {% block table.tbody.row %}
-                    <tr  {{ row.attrs.as_html }} {% if forloop.last and table.page.has_next %} hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}" hx-trigger="revealed" hx-swap="afterend" hx-vals="js:{ scroll: true }" {% endif %}>
+                    <tr class="odd:bg-slate-100"
+                        {% if forloop.last and table.page.has_next %} 
+                        hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}"
+                        hx-trigger="revealed" 
+                        hx-swap="afterend" 
+                        hx-vals="js:{ scroll: true }" 
+                        {% endif %}>
 
                         {% for column, cell in row.items %}
-                            <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+                            <td class="text-ellipsis">{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
                         {% endfor %}
                     </tr>
                     {% endblock table.tbody.row %}

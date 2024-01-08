@@ -1,0 +1,20 @@
+{% load widget_tweaks %}
+<div class="border-4 border-black inline-block p-4 shadow-signature bg-white gap-28 w-70">
+    <h2 class="font-bold text-black text-center block w-full">LOGIN</h2>
+    <form method="post" class="inline-block gap-8 p-2 w-full">
+        {% csrf_token %}
+        <div class="block mb-4">
+            <label for="{{ form.username.id_for_label }}" class="block">Username</label>
+            <!-- check out django-widget-tweaks for more stuff -->
+            <!-- this is needed because the login form is handled by the auth package -->
+            {{ form.username|add_class:"border-4 border-black focus:outline-none w-full pt-1 px-1" }}
+        </div>
+        <div class="block mb-4">
+            <label for="{{ form.password.id_for_label }}" class="block">Password</label>
+            {{ form.password|add_class:"border-4 border-black focus:outline-none w-full pt-1 px-1" }}
+        </div>
+        <div class="block text-center">
+            <button type="submit" class="text-center bg-blue font-bold text-white pb-2 pt-3 px-12">LOGIN</button>
+        </div>
+    </form>
+</div>

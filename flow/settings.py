@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap5.html"
+DJANGO_TABLES2_TEMPLATE = "infinite/table.html"
 
 
 # Application definition

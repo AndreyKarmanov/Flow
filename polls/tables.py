@@ -31,12 +31,21 @@ class CourseTable(tables.Table):
         linkify=("polls:course", [tables.A("school.pk"), tables.A("department.pk"), tables.A("pk")]),
         verbose_name="Course",
         accessor=tables.A("name"),
+        attrs={"th" : {"class": "w-96"}, "a": {"class": "text-sans"}},
+    )
+
+    code = tables.columns.Column(
+        attrs={"th" : {"class": "w-40"}},
+    )
+
+    credits = tables.columns.Column(
+        attrs={"th" : {"class": "w-8"}},
     )
 
     class Meta:
         model = Course
         template_name = "infinite/table.html"
-        fields = ('code', 'name', 'department', 'credits')
+        fields = ('code', 'name', 'credits')
 
 
 class CourseSearchTable(tables.Table):
@@ -44,7 +53,6 @@ class CourseSearchTable(tables.Table):
         linkify=("polls:course", [tables.A("school.pk"), tables.A("department.pk"), tables.A("pk")]),
         verbose_name="Course",
         accessor=tables.A("name"),
-        attrs={"a": {"href": lambda record: record.get_absolute_url()}},
         empty_values=(),
         orderable=False,
     )
