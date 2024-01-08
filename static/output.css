@@ -705,6 +705,10 @@ p {
   border-width: 4px;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .border-black {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -738,8 +742,26 @@ p {
   padding-bottom: 0.5rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .pt-1 {
   padding-top: 0.25rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
+.pt-3 {
+  padding-top: 0.75rem;
 }
 
 .text-center {
@@ -748,6 +770,10 @@ p {
 
 .font-kadwa-bold {
   font-family: Kadwa, serif;
+}
+
+.font-kadwa {
+  font-family: kadwaregular, serif;
 }
 
 .text-2xl {

@@ -20,6 +20,9 @@ module.exports = {
       colors: {
         'blue': '#032DC2',
       },
+      borderRadius: {
+        'default': '4px',
+      },
     },
   },
   plugins: [],

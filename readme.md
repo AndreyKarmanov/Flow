@@ -19,10 +19,13 @@ isn't hosted yet for all to see, but will be soon enough.
 
 ### todo!
 
-1. nice course layout, with bars n stuff? 
-2. reviews are needed; add data for how long they spent a week; add suggestions on good review
-3. much better layout for website
-4. redo like all the css to make it look nice (lol how fun!)
+1. [x] login page
+2. [ ] signup page
+3. [ ] home page
+4. [ ] course page
+5. [ ] search bar
+6. [ ] nav bar
+7. [ ] tables
 
 ### Scraping the data
 scraping data across universities - ask the cs clubs nicely
