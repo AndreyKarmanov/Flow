@@ -797,6 +797,7 @@ p {
 }
 
 .shadow-signature {
+.shadow-signature {
   --tw-shadow: 14px 14px blue;
   --tw-shadow-colored: 14px 14px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
