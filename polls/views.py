@@ -56,7 +56,7 @@ class InfiniteDepartments(SingleTableView):
 class InfiniteCourses(SingleTableView):
     table_class = CourseTable
     template_name = 'department.html'
-    paginate_by = 10
+    paginate_by = 20
 
     def get(self, request: HtmxHttpRequest, school_id: int = None, department_id: int = None):
         if school_id is not None:
