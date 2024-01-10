@@ -5,7 +5,7 @@
                 <label for="reviewEffort" class="block font-bold">Hours a week</label>
                 <label id="reviewEffortLabel" for="reviewEffort" class="font-bold">Effort Required</label>
             </div>
-            <input type="range" class="w-full mt-2" id="reviewEffort" min="0" max="9" step="1">
+            <input type="range" class="w-full my-1 accent-blue" id="reviewEffort" min="0" max="9" step="1">
             <p class="text-sm">The time spent each week on the course</p>
         </div>
         <div>
@@ -13,25 +13,25 @@
                 <label for="reviewUseful" class="block font-bold">Applicability</label>
                 <label id="reviewUsefulLabel" for="reviewUseful" class="block font-bold">Foundational</label>
             </div>
-            <input type="range" class="w-full mt-2" id="reviewUseful" min="0" max="4" step="1">
+            <input type="range" class="w-full my-1 accent-blue" id="reviewUseful" min="0" max="4" step="1">
             <p class="text-sm">How useful the course is, both in school or industry</p>
         </div>
         <div>
             <label for="reviewComment" class="block font-bold mb-2">Additional Comments</label>
-            <textarea class="w-full mt-2 border-4 p-4 border-black" id="reviewComment" rows="3" placeholder="If I were to do it again..."></textarea>
+            <textarea class="w-full text-sm my-1 accent-blue border-4 p-4 border-black" id="reviewComment" rows="3" placeholder="If I were to do it again..."></textarea>
         </div>
         <div>
             <div class="flex place-content-between">
                 <label for="reviewRating" class="block font-bold">Overall</label>
                 <label id="ratingLabel" for="reviewRating" class="block font-bold">Average</label>
             </div>
-            <input type="range" class="w-full mt-2" id="reviewRating" min="0" max="4" step="1">
+            <input type="range" class="w-full my-1 accent-blue" id="reviewRating" min="0" max="4" step="1">
             <p class="text-sm">How would you rate this course overall?</p>
         </div>
         <div>
-            <div class="flex items-center">
-                <input type="checkbox" class="form-check-input" id="reviewAnonymous">
-                <label for="reviewAnonymous" class="ml-2">Anonymous</label>
+            <div class="flex place-content-between">
+                <label for="reviewAnonymous" class="font-bold w-full">Anonymous</label>
+                <input type="checkbox" class="form-check-input w-5 rounded-none accent-blue" id="reviewAnonymous">
             </div>
         </div>
         <div class="flex items-center justify-center">
