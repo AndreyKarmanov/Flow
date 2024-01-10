@@ -21,26 +21,11 @@ class HtmxHttpRequest(HttpRequest):
 def index(request):
     return render(request, "index.html")
 
-class InfiniteSchools(SingleTableView):
-    table_class = SchoolTable
-    template_name = 'school.html'
-    paginate_by = 10
-
+class SchoolsView(SingleTableView):
+    template_name = 'schools.html'
     def get(self, request: HtmxHttpRequest):
         queryset = School.objects.all()
-        schoolTable = self.table_class(queryset)
-        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(schoolTable)
-
-        if not request.htmx:
-            return render(request, self.template_name, {'table': schoolTable})
-
-        if request.GET.get('scroll', False):
-            return render(request, 'infinite/partial.html', {'table': schoolTable})
-
-        if request.GET.get('sort', False):
-            return render(request, 'infinite/table.html', {'table': schoolTable})
-
-        return render(request, 'base/empty.html')
+        return render(request, self.template_name, {'schools' : queryset})
     
 class InfiniteDepartments(SingleTableView):
     table_class = DepartmentTable

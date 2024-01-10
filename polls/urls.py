@@ -1,12 +1,14 @@
 from django.contrib import admin, auth
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 from . import views
 
 app_name = "polls" # why are the nameing conventions different here? kind of annoying
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("schools/", views.InfiniteSchools.as_view(), name="schools"),
+    path("", views.SchoolsView.as_view(), name="index"),
+    path("schools/", views.SchoolsView.as_view(), name="schools"),
     path("schools/<int:school_id>", views.SchoolView.as_view(), name="school"),
     path("schools/<int:school_id>/courses", views.InfiniteCourses.as_view(), name="courses"),
     path("schools/<int:school_id>/departments/", views.InfiniteDepartments.as_view(), name="departments"),
@@ -15,5 +17,5 @@ urlpatterns = [
     path("accounts/register/", views.RegisterView.as_view(), name="register"),
     path("profile/", views.ProfileView.as_view(), name="profile"),
     path("search/", views.SearchView.as_view(), name="search"),
-    path("temp/", views.TempView.as_view(), name="temp")
-]
+    path("temp/", views.TempView.as_view(), name="temp"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

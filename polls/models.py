@@ -6,6 +6,7 @@ class School(models.Model):
     country = models.CharField(max_length=60, blank=False, null=False)
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
+    image = models.ImageField(upload_to='schools/', blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.name}"

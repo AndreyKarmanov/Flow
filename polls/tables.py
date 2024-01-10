@@ -21,9 +21,19 @@ class DepartmentTable(tables.Table):
         accessor=tables.A("name"),
     )
 
+    courseCount = tables.columns.Column(
+        accessor="courses.count",
+        verbose_name="Course Count"
+    )
+
+    averageRating = tables.columns.Column(
+        accessor="courses.aggregate(Avg('rating'))['rating__avg']",
+        verbose_name="Average Rating"
+    )
+
     class Meta:
         model = Department
-        fields = ('name', 'school')
+        fields = ('name', 'courseCount', 'averageRating')
 
 
 class CourseTable(tables.Table):
@@ -31,15 +41,15 @@ class CourseTable(tables.Table):
         linkify=("polls:course", [tables.A("school.pk"), tables.A("department.pk"), tables.A("pk")]),
         verbose_name="Course",
         accessor=tables.A("name"),
-        attrs={"th" : {"class": "w-96"}, "a": {"class": "text-sans"}},
+        attrs={"th" : {"class": "w-8 cursor-pointer"}, "a": {"class": "text-sans text-ellipsis w-full h-full"}},
     )
 
     code = tables.columns.Column(
-        attrs={"th" : {"class": "w-40"}},
+        attrs={"th" : {"class": "w-8 cursor-pointer"}, "td": {"class": "text-left"}},
     )
 
     credits = tables.columns.Column(
-        attrs={"th" : {"class": "w-8"}},
+        attrs={"th" : {"class": "w-8 cursor-pointer"}},
     )
 
     class Meta:

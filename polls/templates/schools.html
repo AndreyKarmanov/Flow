@@ -8,6 +8,30 @@
 </li>
 {% endblock %}
 {% block content %}
-<h1>Schools</h1>
-{% include 'infinite/table.html' %}
+{% for school in schools %}
+<a class="border-4 border-black p-4 bg-white shadow-signature w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:departments' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="border-4 border-black p-4 bg-white shadow-signature w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:departments' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="border-4 border-black p-4 bg-white shadow-signature w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:departments' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="border-4 border-black p-4 bg-white shadow-signature w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:departments' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="border-4 border-black p-4 bg-white shadow-signature w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:departments' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="border-4 border-black p-4 bg-white shadow-signature w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:departments' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+{% endfor %}
 {% endblock %}

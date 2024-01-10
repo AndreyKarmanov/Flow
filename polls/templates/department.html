@@ -19,5 +19,11 @@
 {% endblock %}
 {% block content %}
 <h1>{{ department.name }}</h1>
-{% include 'infinite/table.html' %}
+<div class="max-w-screen-md">
+    {% include 'infinite/table.html' with table=table %}
+</div>
+<div id="filtering" class="max-w-screen-md">
+    {% include 'partials/review.html' %}
+</div>
+
 {% endblock %}

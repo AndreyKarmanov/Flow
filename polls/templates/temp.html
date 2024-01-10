@@ -1,47 +1,7 @@
 {% extends 'base/base.html' %}
-
 {% block breadcrumb %}
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:schools' %}">
-        Schools
-    </a>
-</li>
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:departments' school.pk %}">
-        {{ school.name }}
-    </a>
-</li>
-<li class="breadcrumb-item active" aria-current="page">
-    <a href="#">
-        {{ department.name }}
-    </a>
-</li>
+
 {% endblock %}
 {% block content %}
-<h1>{{ department.name }}</h1>
-<table class="table-auto">
-    <thead class="text-left">
-      <tr>
-        <th>Song</th>
-        <th>Artist</th>
-        <th>Year</th>
-      </tr>
-    </thead>
-    <tbody class="border-4 border-black">
-      <tr>
-        <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-        <td>Malcolm Lockyer</td>
-        <td>1961</td>
-      </tr>
-      <tr>
-        <td>Witchy Woman</td>
-        <td>The Eagles</td>
-        <td>1972</td>
-      </tr>
-      <tr>
-        <td>Shining Star</td>
-        <td>Earth, Wind, and Fire</td>
-        <td>1975</td>
-      </tr>
-    </tbody>
-  </table>{% endblock %}
+
+{% endblock %}
