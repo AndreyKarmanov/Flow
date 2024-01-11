@@ -29,13 +29,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DJANGO_TABLES2_TEMPLATE = "infinite/table.html"
+DJANGO_TABLES2_TEMPLATE = "partials/table.html"
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django_filters',
     'django_tables2',
     'django_htmx',
     'django_browser_reload',

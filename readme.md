@@ -21,6 +21,8 @@ isn't hosted yet for all to see, but will be soon enough.
 
 ### todo!
 
+Rip out all views and redo them. 
+
 #### main pages
 1. course page [title, ratings, add review, list reviews]
 2. make course table nice [code, title, ratings]

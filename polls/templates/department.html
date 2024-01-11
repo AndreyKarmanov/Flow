@@ -1,29 +1,12 @@
-{% extends 'base/base.html' %}
+{% extends 'partials/base.html' %}
 
-{% block breadcrumb %}
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:schools' %}">
-        Schools
-    </a>
-</li>
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:departments' school.pk %}">
-        {{ school.name }}
-    </a>
-</li>
-<li class="breadcrumb-item active" aria-current="page">
-    <a href="#">
-        {{ department.name }}
-    </a>
-</li>
-{% endblock %}
 {% block content %}
 <h1>{{ department.name }}</h1>
-<div class="max-w-screen-md">
-    {% include 'infinite/table.html' with table=table %}
+<div class="max-w-screen-md ">
+    {% include 'partials/table.html' with table=table %}
 </div>
 <div id="filtering" class="max-w-screen-md">
-    {% include 'partials/review.html' %}
+    {% include 'partials/filter.html' %}
 </div>
 
 {% endblock %}

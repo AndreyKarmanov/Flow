@@ -1,11 +1,12 @@
-<div class="container border-4 border-black shadow-signature">
-    <form class="bg-white p-8 pt-6 pb-8 flex gap-8 flex-col">
+<div class="boxed">
+    <form class="flex gap-8 flex-col">
         <div>
             <div class="flex place-content-between">
-                <label for="reviewEffort" class="block font-bold">Hours a week</label>
-                <label id="reviewEffortLabel" for="reviewEffort" class="font-bold">Effort Required</label>
+                <label for="courseCount" class="block font-bold">Minimum Courses</label>
+                <label id="courseCountLabel" for="courseCount" class="font-bold">0</label>
             </div>
-            <input type="range" class="w-full my-1 accent-blue" id="reviewEffort" min="0" max="9" step="1">
+            <input type="range" class="w-full cursor-ew-resize my-1 accent-blue" id="courseCount" value="0" min="0" max="1000" step="10"
+            hx-post="#" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'>
             <p class="text-sm">The time spent each week on the course</p>
         </div>
         <div>
@@ -13,7 +14,7 @@
                 <label for="reviewUseful" class="block font-bold">Applicability</label>
                 <label id="reviewUsefulLabel" for="reviewUseful" class="block font-bold">Foundational</label>
             </div>
-            <input type="range" class="w-full my-1 accent-blue" id="reviewUseful" min="0" max="4" step="1">
+            <input type="range" class="w-full cursor-ew-resize my-1 accent-blue" id="reviewUseful" min="0" max="4" step="1">
             <p class="text-sm">How useful the course is, both in school or industry</p>
         </div>
         <div>
@@ -25,13 +26,13 @@
                 <label for="reviewRating" class="block font-bold">Overall</label>
                 <label id="ratingLabel" for="reviewRating" class="block font-bold">Average</label>
             </div>
-            <input type="range" class="w-full my-1 accent-blue" id="reviewRating" min="0" max="4" step="1">
+            <input type="range" class="w-full cursor-ew-resize my-1 accent-blue" id="reviewRating" min="0" max="4" step="1">
             <p class="text-sm">How would you rate this course overall?</p>
         </div>
         <div>
             <div class="flex place-content-between">
-                <label for="reviewAnonymous" class="font-bold w-full">Anonymous</label>
-                <input type="checkbox" class="form-check-input w-5 rounded-none accent-blue" id="reviewAnonymous">
+                <label for="reviewAnonymous" class="font-bold w-full cursor-pointer">Anonymous</label>
+                <input type="checkbox" class="form-check-input w-5 cursor-pointer rounded-none accent-blue" id="reviewAnonymous">
             </div>
         </div>
         <div class="flex items-center justify-center">
@@ -52,13 +53,8 @@
     });
 
 
-    const reviewEffort = document.getElementById("reviewEffort");
-    const reviewEffortLabel = document.getElementById("reviewEffortLabel");
-    const reviewEffortLabels = ["<0 hours", "1 hours", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9+ hours"];
-
-    reviewEffortLabel.textContent = reviewEffortLabels[parseInt(reviewEffort.value)];
-    reviewEffort.addEventListener("input", function (value) {
-        reviewEffortLabel.textContent = reviewEffortLabels[parseInt(value.target.value)];
+    document.getElementById("courseCount").addEventListener("input", function (value) {
+        document.getElementById("courseCountLabel").textContent = value.target.value;
     });
 
     const reviewUseful = document.getElementById("reviewUseful");

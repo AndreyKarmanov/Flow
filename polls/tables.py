@@ -54,7 +54,7 @@ class CourseTable(tables.Table):
 
     class Meta:
         model = Course
-        template_name = "infinite/table.html"
+        template_name = "partials/table.html"
         fields = ('code', 'name', 'credits')
 
 
@@ -73,6 +73,6 @@ class CourseSearchTable(tables.Table):
     class Meta:
         model = Course
         show_header = False
-        template_name = "infinite/table.html"
+        template_name = "partials/table.html"
         attrs = {"style": "margin-bottom: 0;", "class": "table table-hover rounded"}
         fields = ('course', 'department')

@@ -20,6 +20,10 @@
   p {
     @apply font-sans;
   }
+
+  .boxed {
+    @apply border-4 border-black shadow-signature bg-white p-8;
+  }
 }
 :root {
   --foreground-rgb: 0, 0, 0;

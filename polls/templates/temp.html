@@ -1,7 +1,6 @@
-{% extends 'base/base.html' %}
-{% block breadcrumb %}
-
-{% endblock %}
+{% extends 'partials/base.html' %}
 {% block content %}
+<div hx-trigger="load delay:1s" hx-get="{% url 'polls:courses' school.pk %} ">
 
+</div>
 {% endblock %}

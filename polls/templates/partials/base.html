@@ -19,7 +19,7 @@
 
             <!-- Search Bar -->
             <div class="flex border-4 border-black bg-white pt-1 flex-1 col-span-2 relative">
-                <input id="search-input" class="w-full focus:outline-none" name="search" type="text"
+                <input id="search-input" class="w-full focus:outline-none" name="name" type="text"
                     hx-post="{% url 'polls:search' %}" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
                     hx-trigger="keyup changed delay:250ms" hx-target="#search-results" hx-swap="innerHTML"
                     autocomplete="off">
