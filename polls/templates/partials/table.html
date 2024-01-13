@@ -1,7 +1,7 @@
 {% load django_tables2 %}
 {% load i18n l10n %}
 {% block table-wrapper %}
-<div id="tableContainer" class="boxed">
+<div id="tableContainer">
     {% block table %}
     <table class="table-fixed bg-white w-full">
         {% block table.thead %}
@@ -11,8 +11,8 @@
                 {% for column in table.columns %}
                 {% if column.orderable %}
                 <th class="{{ column.attrs.th.class }}"
-                    hx-get="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
-                    hx-trigger="click" hx-target="#tableContainer" hx-vals="js:{ sort: true }" hx-swap="outerHTML"
+                    hx-post="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}"
+                    hx-trigger="click" hx-target="#tableContainer" hx-vals="js:{ sort: true }"
                     href="#">
                     {{ column.header }}
                 </th>
@@ -30,7 +30,7 @@
             {% block table.tbody.row %}
             <tr class="{{ column.attrs.tr.class }}odd:bg-slate-100 {% if forloop.last and table.page.has_next %} last {% endif %}"
                 {% if forloop.first and table.page.has_next %}
-                hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}" hx-target="next .last"
+                hx-post="{% querystring table.prefixed_page_field=table.page.next_page_number %}" hx-target="next .last"
                 hx-trigger="revealed" hx-swap="afterend" hx-vals="js:{ scroll: true }" {% endif %}>
 
                 {% for column, cell in row.items %}

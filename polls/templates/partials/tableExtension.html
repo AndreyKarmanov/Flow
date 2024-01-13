@@ -4,10 +4,11 @@
     {% block table.tbody.row %}
     <tr class="odd:bg-slate-100 {% if forloop.last and table.page.has_next %} last {% endif %}"
         {% if forloop.first and table.page.has_next %} 
-        hx-get="{% querystring table.prefixed_page_field=table.page.next_page_number %}"
+        hx-post="{% querystring table.prefixed_page_field=table.page.next_page_number %}"
         hx-target="next .last"
         hx-trigger="revealed" 
         hx-swap="afterend"
+        hx-vals="js:{ scroll: true }"
         name="next"
         {% endif %}>
     

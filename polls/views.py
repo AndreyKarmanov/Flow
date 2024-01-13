@@ -11,7 +11,7 @@ from django_htmx.middleware import HtmxDetails
 from .tables import SchoolTable, DepartmentTable, CourseTable, CourseSearchTable
 from .models import School, Department, Course
 from .forms import RegisterForm
-from django.db.models import Avg, Sum
+from django.db.models import Avg, Sum, Count
 
 
 
@@ -26,13 +26,10 @@ class SchoolsView(SingleTableView):
 
 class CoursesTable(SingleTableView):
     table_class = CourseTable
-    template_name = 'tableView.html'
+    template_name = 'coursesView.html'
     paginate_by = 20
 
-    def get(self, request: HtmxHttpRequest, school_id: int = None):
-
-        if request.htmx:
-            return self.post(request, school_id)
+    def get(self, request: HtmxHttpRequest, school_id: int = None, department_id: int = None):
 
         queryset = Course.objects.all()
         school = None
@@ -43,19 +40,15 @@ class CoursesTable(SingleTableView):
         
         courseTable = self.table_class(queryset)
         RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(courseTable)
-
-
         
         if school is not None:
             return render(request, self.template_name, {'table': courseTable, 'school': school})
         
         return render(request, self.template_name, {'table': courseTable})
     
-    def post(self, request: HtmxHttpRequest, school_id: int = None):
+    def post(self, request: HtmxHttpRequest, school_id: int = None, department_id: int = None):
         if not request.htmx: # only allow POST requests from htmx
             return HttpResponseNotAllowed(['POST'])
-        
-        print(request.POST)
         
         # build the filter query
         filterQuery = Q()
@@ -86,8 +79,7 @@ class CoursesTable(SingleTableView):
         courses = Course.objects.filter(filterQuery)
         table = CourseTable(courses)
         RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(table)
-
-        if request.GET.get('scroll', False):
+        if request.POST.get('scroll', False):
             return render(request, 'partials/tableExtension.html', {'table': table, 'school': school})
         return render(request, 'partials/table.html', {'table': table, 'school': school})
     
@@ -113,9 +105,35 @@ class InfiniteDepartments(SingleTableView):
             return render(request, 'partials/tableExtension.html', {'table': courseTable, 'school': school})
         
         if request.GET.get('sort', False):
-            return render(request, 'partials/table.html', {'table': courseTable, 'school': school})
+            return render(request, 'base/empty.html')
+    
+    def post(self, request: HtmxHttpRequest, school_id: int = None):
+        if not request.htmx:
+            return HttpResponseNotAllowed(['POST'])
+
+        print(request.POST)
         
-        return render(request, 'base/empty.html')
+        if school_id is not None:
+            school = get_object_or_404(School, pk=school_id)
+            queryset = school.departments.all()
+        else:
+            queryset = Department.all()
+
+        
+        if min_courses := request.POST.get('minCourses', 0):
+            min_courses = int(min_courses)
+            print("filtering for min courses", min_courses)
+            queryset = queryset.annotate(course_count=Count('courses')).filter(course_count__gte=min_courses)
+        if max_courses := request.POST.get('maxCourses', 0):
+            max_courses = int(max_courses)
+            queryset = queryset.annotate(course_count=Count('courses')).filter(course_count__lte=max_courses)
+        
+        table = self.table_class(queryset)
+        RequestConfig(request, paginate={'per_page': self.paginate_by}).configure(table)
+
+        if request.GET.get('scroll', False):
+            return render(request, 'partials/tableExtension.html', {'table': table, 'school': school})
+        return render(request, 'partials/table.html', {'table': table, 'school': school})
 
 
 class CourseView(SingleTableView):

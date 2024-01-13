@@ -6,14 +6,18 @@
     <!-- {% include 'partials/table.html' with table=table %} -->
 </div>
 <div id="filtering" class="max-w-screen-md">
-    <!-- {% include 'partials/filter.html' %} -->
-    <div>
+    <div
+        hx-target="#table"
+        hx-trigger="change delay:250ms, load"
+        hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
+        hx-swap="innerHTML"
+        hx-post="#"
+        hx-vals="js:{ minCourses: document.querySelector('#courseCount').value }">
         <div class="flex place-content-between">
             <label for="courseCount" class="block font-bold">Minimum Courses</label>
             <label id="courseCountLabel" for="courseCount" class="font-bold">0</label>
         </div>
-        <input name="minCredits" type="range" class="w-full cursor-ew-resize my-1 accent-blue" id="courseCount" value="0" min="0" max="2" step="0.25"
-        hx-post="#" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}' hx-target="#table">
+        <input name="minCourses" type="range" oninput="document.querySelector('#courseCountLabel').textContent = this.value" class="w-full cursor-ew-resize my-1 accent-blue" id="courseCount" value="0" min="0" max="1000" step="10">
         <p class="text-sm">The time spent each week on the course</p>
     </div>
 </div>
