@@ -33,20 +33,16 @@ jobs:
           run: |
             gcloud info
 
-        # - name: Gather Static Files
-        #   run: |
-        #       python manage.py collectstatic --noinput
+        - name: Gather Static Files
+          run: |
+              python manage.py collectstatic --noinput
 
-        # - name: Run Migrations
-        #   run: |
-        #       python manage.py makemigrations
-        #       python manage.py migrate
+        - name: Run Migrations
+          run: |
+              python manage.py makemigrations
+              python manage.py migrate
 
-        # - name: Deploy to App Engine
-        #   id: deploy
-        #   uses: google-github-actions/deploy-appengine@v0.2.0
-        #   with:
-        #       deliverables: app.yaml
-        #       version: v1
-        #       project_id: ${{ secrets.PROJECT_ID }}
-        #       credentials: ${{ secrets.SERVICE_ACCOUNT }}
+        - name: Deploy to App Engine
+          uses: google-github-actions/deploy-appengine@v2
+          with:
+            project_id: ${{ secrets.PROJECT_ID }}
