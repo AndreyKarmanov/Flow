@@ -13,13 +13,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
+          with:
+            lfs: true
+        - name: Checkout LFS objects
+          run: git lfs checkout
+
         - uses: actions/setup-python@v4
           with:
-              python-version: '3.11'
+              python-version: '3.11'             
 
         - name: Install Requirements
           run: |
               pip install -r requirements.txt
+
+        - name: Gather Static Files
+          run: |
+              python manage.py collectstatic --noinput
+
+        - name: Run Migrations
+          run: |
+              python manage.py makemigrations
+              python manage.py migrate
+
         - name: Authorize Gcloud
           uses: google-github-actions/auth@v2
           with:
@@ -32,15 +47,6 @@ jobs:
         - name: run gcloud commands
           run: |
             gcloud info
-
-        - name: Gather Static Files
-          run: |
-              python manage.py collectstatic --noinput
-
-        - name: Run Migrations
-          run: |
-              python manage.py makemigrations
-              python manage.py migrate
 
         - name: Deploy to App Engine
           uses: google-github-actions/deploy-appengine@v2
