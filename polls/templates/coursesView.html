@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<h1>{{ department.name }}</h1>
+
+<div class="mt-16 flex flex-wrap-reverse justify-center gap-10" hx-target="#table"
+    hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}' hx-swap="innerHTML" hx-post="#" hx-vals="js:{ 
+                minCredits: document.querySelector('#creditsMin').value,
+                minRating: document.querySelector('#ratingMin').value,
+                maxWorkload: document.querySelector('#workloadMax').value,
+                minUtility: document.querySelector('#utilityMin').value,
+             }" hx-trigger="change delay:250, load once">
+    <div>
+        <div class="max-w-screen-lg boxed" id="table">
+        </div>
+    </div>
+    <div id="filtering" class="max-w-screen-lg mx-10">
+        <div class="boxed flex flex-col gap-8 w-full">
+            {% include 'partials/slider.html' with name='creditsMin' label="Min Credits" min='0' max='1.5' step='0.25' desc='' %}
+            {% include 'partials/slider.html' with name='ratingMin' label="Min Rating" min='0' max='5' step='0.1' desc='' %}
+            {% include 'partials/slider.html' with name='workloadMax' label="Max Workload" min='0' max='5' step='0.1' desc='' %}
+            {% include 'partials/slider.html' with name='utilityMin' label="Min Utility" min='0' max='5' step='0.1' desc='' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

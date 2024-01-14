@@ -1,6 +1,6 @@
+<!DOCTYPE html>
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,7 +19,7 @@
 
             <!-- Search Bar -->
             <div class="flex border-4 border-black bg-white pt-1 flex-1 col-span-2 relative">
-                <input id="search-input" class="w-full focus:outline-none" name="search" type="text"
+                <input id="search-input" class="w-full focus:outline-none" name="name" type="text"
                     hx-post="{% url 'polls:search' %}" hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}'
                     hx-trigger="keyup changed delay:250ms" hx-target="#search-results" hx-swap="innerHTML"
                     autocomplete="off">
@@ -40,19 +40,15 @@
                 {% endif %}
             </div>
         </div>
-    </nav>
-    <div>
-        {% block header %}
-        {% endblock %}
-    </div>
 
-    <div class="container mx-auto mt-8 flex justify-center">
+    </nav>
+
+
+    <div class="mt-16 flex flex-wrap flex-row-reverse justify-center gap-10">
         {% block content %}
         {% endblock %}
     </div>
-
     <script src="{% static 'htmx.min.js' %}"></script>
     <script src="{% static 'jquery-3.6.1.min.js' %}"></script>
 </body>
-
 </html>

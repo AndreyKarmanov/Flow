@@ -1,13 +1,33 @@
-{% extends 'base/base.html' %}
-
-{% block breadcrumb %}
-<li class="breadcrumb-item active">
-    <a href="#" aria-current="page">
-        Schools
-    </a>
-</li>
-{% endblock %}
+{% extends 'partials/base.html' %}
 {% block content %}
-<h1>Schools</h1>
-{% include 'infinite/table.html' %}
+{% for school in schools %}
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+<a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
+    href="{% url 'polls:courses' school.pk %}">
+    <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
+</a>
+{% endfor %}
 {% endblock %}

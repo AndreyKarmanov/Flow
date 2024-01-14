@@ -1,7 +1,6 @@
-{% extends 'base/base.html' %}
+{% extends 'partials/base.html' %}
 
 {% block title %}Register{% endblock %}
-{% block header %}<h1>{{ user.username }}</h1>{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}

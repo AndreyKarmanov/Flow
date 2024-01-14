@@ -1,0 +1,10 @@
+<div>
+    <div class="flex flex-row place-content-between w-full gap-8">
+        <label for="{{ name }}" class="block font-bold">{{ label }}</label>
+        <label id="{{ name }}Label" for="{{ name }}" class="font-bold min-w-10 text-center">0</label>
+    </div>
+    <input name="{{ name }}" type="range" oninput="document.querySelector('#{{ name }}Label').textContent = this.value"
+        class="w-full cursor-ew-resize my-1 accent-blue" id="{{ name }}" value="0" min="{{ min }}" max="{{ max }}"
+        step="{{ step }}">
+    <p class="text-sm">{{ desc }}</p>
+</div>

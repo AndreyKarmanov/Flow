@@ -1,27 +1,4 @@
-{% extends 'base/base.html' %}
-{% block breadcrumb %}
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:schools' %}">
-        Schools
-    </a>
-</li>
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:departments' school.pk %}">
-        {{ school.name }}
-    </a>
-</li>
-<li class="breadcrumb-item">
-    <a href="{% url 'polls:courses' school.pk department.pk %}">
-        {{ department.name }}
-    </a>
-</li>
-<li class="breadcrumb-item active">
-    <a href="#" aria-current="page">
-        {{ course.code }}
-    </a>
-</li>
-{% endblock %}
-
+{% extends 'partials/base.html' %}
 {% block content %}
 <div class="container">
     <div class="row">
@@ -44,7 +21,7 @@
                         <h1 class="card-title">Rating: {{ course.rating }}</h1>
                         <h2 class="card-subtitle">Reviews: {{ reviews.count }}</h2>
                         <h3 class="card-text">Difficulty: {{ difficulty }}</h3>
-                        <h4 class="card-text">Usefulness: {{ usefulness }}</h4>
+                        <h4 class="card-text">Utility: {{ utility }}</h4>
                     </div>
                 </div>
             </div>
@@ -52,5 +29,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

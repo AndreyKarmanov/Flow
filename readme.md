@@ -21,13 +21,16 @@ isn't hosted yet for all to see, but will be soon enough.
 
 ### todo!
 
-1. [x] login page (sorta)
-2. [ ] signup page
-3. [ ] home page
-4. [ ] course page
-5. [ ] search bar
-6. [ ] nav bar
-7. [ ] tables
+Rip out all views and redo them. 
+
+#### main pages
+1. course page [title, ratings, add review, list reviews]
+2. make course table nice [code, title, ratings]
+2. filtering courses [level, rating, department, program]
+3. school page [tab between courses, departments, profs, programs]
+4. prof page [title, ratings, add review, list reviews]
+5. program page [title, ratings, add review, list reviews]
+6. user page [profile, reviews, courses, program]
 
 ### Scraping the data
 scraping data across universities - ask the cs clubs nicely
