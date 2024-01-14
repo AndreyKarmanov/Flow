@@ -3,76 +3,25 @@
 {% block content %}
 <h1>{{ department.name }}</h1>
 
-<div class="mt-16 flex flex-wrap justify-center gap-10" hx-target="#table"
+<div class="mt-16 flex flex-wrap-reverse justify-center gap-10" hx-target="#table"
     hx-headers='{"X-CSRFToken" : "{{ csrf_token }}"}' hx-swap="innerHTML" hx-post="#" hx-vals="js:{ 
                 minCredits: document.querySelector('#creditsMin').value,
-             }" hx-trigger="change delay:250ms, load once">
-    <div class="max-w-screen-md boxed" id="table">
-        <!-- {% include 'partials/table.html' with table=table %} -->
-    </div>
-    <div id="filtering" class="max-w-screen-md">
-        <div class="boxed">
-            {% include 'partials/slider.html' with name='creditsMin' label="Minimum Credits" min='0' max='1.5' step='0.25' desc='Minimum Number of credits' %}
-            <div class="flex place-content-between">
-                <label id="rangedLabelLeft" for="ranged" class="font-bold">0</label>
-                <label id="rangedLabelRight" for="ranged" class="font-bold">0</label>
-            </div>
-            <div class="">
-                <input name="ranged" type="range"
-                    oninput="document.querySelector('#rangedLabelLeft').textContent = this.value"
-                    class="cursor-ew-resize my-1 absolute knob min" id="rangedMin" value="0" min="0" max="10" step="1">
-                <input name="ranged" type="range"
-                    oninput="document.querySelector('#rangedLabelRight').textContent = this.value"
-                    class="cursor-ew-resize my-1 absolute knob max" id="rangedMax" value="0" min="0" max="10" step="1">
-            </div>
-
-            <p class="text-sm">{{ desc }}</p>
+                minRating: document.querySelector('#ratingMin').value,
+                maxWorkload: document.querySelector('#workloadMax').value,
+                minUtility: document.querySelector('#utilityMin').value,
+             }" hx-trigger="change delay:250, load once">
+    <div>
+        <div class="max-w-screen-lg boxed" id="table">
         </div>
     </div>
-    <style>
-        .knob::-webkit-slider-thumb {
-            z-index: 2;
-            offset-position: 10px 10px;
-            pointer-events: all;
-        }
-
-        .knob::-webkit-slider-runnable-track {
-            z-index: 1;
-            -webkit-appearance: none;
-            pointer-events: none;
-            /* Disable interaction with the track */
-        }
-
-        .knob.min::-webkit-slider-runnable-track {
-            z-index: 1;
-            -webkit-appearance: none;
-
-            accent-color: black;
-        }
-
-        .knob.max::-webkit-slider-runnable-track {
-            z-index: 1;
-            -webkit-appearance: none;
-
-            accent-color: white;
-        }
-    </style>
-    <script>
-        const rangedMin = document.querySelector('#rangedMin');
-        const rangedMax = document.querySelector('#rangedMax');
-        rangedMin.addEventListener('input', () => {
-            if (parseInt(rangedMin.value) > parseInt(rangedMax.value)) {
-                rangedMax.value = rangedMin.value;
-                rangedMax.dispatchEvent(new Event('input'));
-            }
-        });
-        rangedMax.addEventListener('input', () => {
-            if (parseInt(rangedMax.value) < parseInt(rangedMin.value)) {
-                rangedMin.value = rangedMax.value;
-                rangedMin.dispatchEvent(new Event('input'));
-            }
-        });
-    </script>
+    <div id="filtering" class="max-w-screen-lg mx-10">
+        <div class="boxed flex flex-col gap-8 w-full">
+            {% include 'partials/slider.html' with name='creditsMin' label="Min Credits" min='0' max='1.5' step='0.25' desc='' %}
+            {% include 'partials/slider.html' with name='ratingMin' label="Min Rating" min='0' max='5' step='0.1' desc='' %}
+            {% include 'partials/slider.html' with name='workloadMax' label="Max Workload" min='0' max='5' step='0.1' desc='' %}
+            {% include 'partials/slider.html' with name='utilityMin' label="Min Utility" min='0' max='5' step='0.1' desc='' %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}

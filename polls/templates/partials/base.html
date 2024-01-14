@@ -1,6 +1,6 @@
+<!DOCTYPE html>
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -40,6 +40,7 @@
                 {% endif %}
             </div>
         </div>
+
     </nav>
 
 
@@ -47,9 +48,7 @@
         {% block content %}
         {% endblock %}
     </div>
-
     <script src="{% static 'htmx.min.js' %}"></script>
     <script src="{% static 'jquery-3.6.1.min.js' %}"></script>
 </body>
-
 </html>

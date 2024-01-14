@@ -2,31 +2,31 @@
 {% block content %}
 {% for school in schools %}
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 <a class="boxed p-4 w-80 h-40 overflow-hidden cursor-pointer"
-    href="{% url 'polls:departments' school.pk %}">
+    href="{% url 'polls:courses' school.pk %}">
     <img src="{{ school.image.url }}" alt="{{ school.name }}" class="object-cover w-full h-full">
 </a>
 {% endfor %}

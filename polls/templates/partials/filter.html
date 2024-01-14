@@ -11,10 +11,10 @@
         </div>
         <div>
             <div class="flex place-content-between">
-                <label for="reviewUseful" class="block font-bold">Applicability</label>
-                <label id="reviewUsefulLabel" for="reviewUseful" class="block font-bold">Foundational</label>
+                <label for="reviewUtility" class="block font-bold">Applicability</label>
+                <label id="reviewUtilityLabel" for="reviewUtility" class="block font-bold">Foundational</label>
             </div>
-            <input type="range" class="w-full cursor-ew-resize my-1 accent-blue" id="reviewUseful" min="0" max="4" step="1">
+            <input type="range" class="w-full cursor-ew-resize my-1 accent-blue" id="reviewUtility" min="0" max="4" step="1">
             <p class="text-sm">How useful the course is, both in school or industry</p>
         </div>
         <div>
@@ -57,12 +57,12 @@
         document.getElementById("courseCountLabel").textContent = value.target.value;
     });
 
-    const reviewUseful = document.getElementById("reviewUseful");
-    const reviewUsefulLabel = document.getElementById("reviewUsefulLabel");
-    const reviewUsefulLabels = ["Esoteric", "Rarely", "Average", "Useful", "Foundational"];
+    const reviewUtility = document.getElementById("reviewUtility");
+    const reviewUtilityLabel = document.getElementById("reviewUtilityLabel");
+    const reviewUtilityLabels = ["Esoteric", "Rarely", "Average", "Useful", "Foundational"];
 
-    reviewUsefulLabel.textContent = reviewUsefulLabels[parseInt(reviewUseful.value)];
-    reviewUseful.addEventListener("input", function (value) {
-        reviewUsefulLabel.textContent = reviewUsefulLabels[parseInt(value.target.value)];
+    reviewUtilityLabel.textContent = reviewUtilityLabels[parseInt(reviewUtility.value)];
+    reviewUtility.addEventListener("input", function (value) {
+        reviewUtilityLabel.textContent = reviewUtilityLabels[parseInt(value.target.value)];
     });
 </script>
