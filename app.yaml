@@ -1,6 +1,6 @@
 # [START django_app]
 service: default
-runtime: python11
+runtime: python311
 handlers:
   # This configures Google App Engine to serve the files in the app's
   # static directory.
