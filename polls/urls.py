@@ -1,7 +1,5 @@
 from django.contrib import admin, auth
 from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
 
 from . import views
 
@@ -14,4 +12,4 @@ urlpatterns = [
     path("accounts/register/", views.RegisterView.as_view(), name="register"),
     path("accounts/profile/", views.ProfileView.as_view(), name="profile"),
     path("search/", views.SearchView.as_view(), name="search"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
