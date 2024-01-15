@@ -1,0 +1,13 @@
+Django
+django-extensions
+django-filter
+django-htmx
+django-tables2
+django-browser-reload
+django-widget-tweaks
+httpx
+numpy
+pandas
+requests
+pillow
+gunicorn
