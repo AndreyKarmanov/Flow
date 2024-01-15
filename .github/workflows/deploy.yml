@@ -44,11 +44,9 @@ jobs:
         - name: Connect to gcloud
           uses: google-github-actions/setup-gcloud@v2
 
-        - name: run gcloud commands
-          run: |
-            gcloud info
-
         - name: Deploy to App Engine
           uses: google-github-actions/deploy-appengine@v2
           with:
             project_id: ${{ secrets.PROJECT_ID }}
+            deliverables: |
+              app.yaml
