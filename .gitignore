@@ -2,3 +2,4 @@ __pycache__/
 venv/
 output.css
 server_static/
+.conda/

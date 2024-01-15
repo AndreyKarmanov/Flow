@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 SECRET_KEY = 'django-insecure-s5@2qs(r59&933c2$0yp07fsc+q9hi#)!5)5^#c26gp4y4sqrx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ak-flow.uc.r.appspot.com']
 
 DJANGO_TABLES2_TEMPLATE = "partials/table.html"
 
